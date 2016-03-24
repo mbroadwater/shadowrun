@@ -1,4 +1,5 @@
 class ShadowtalkController < ApplicationController
-  def index
+  def show
+    render :json => {"text": "reply"}
   end
 end
