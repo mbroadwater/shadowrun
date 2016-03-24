@@ -347,3 +347,9 @@ Started GET "/" for ::1 at 2016-03-24 09:29:09 -0400
 Processing by WelcomeController#index as HTML
   Rendered welcome/index.html.erb within layouts/application (0.0ms)
 Completed 200 OK in 15ms (Views: 14.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/shadowtalk/index" for ::1 at 2016-03-24 09:36:30 -0400
+Processing by ShadowtalkController#index as HTML
+  Rendered shadowtalk/index.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 161ms (Views: 154.7ms | ActiveRecord: 0.0ms)
