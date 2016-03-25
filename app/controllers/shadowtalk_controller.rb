@@ -45,5 +45,6 @@ class ShadowtalkController < ApplicationController
       logger.debug reply_text
     end
 
+
   end
 end
