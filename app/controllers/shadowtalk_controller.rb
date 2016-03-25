@@ -51,7 +51,8 @@ class ShadowtalkController < ApplicationController
       {
         "username": params['user_name'],
         "response_type": "in_channel",
-        "text": "\u00AD&gt;&gt;&gt;&gt;&gt;[#{params['text']}]&lt;&lt;&lt;&lt;&lt;\n \u2014 #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"
+        #"text": "\u00AD&gt;&gt;&gt;&gt;&gt;[#{params['text']}]&lt;&lt;&lt;&lt;&lt;\n \u2014 #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"
+        "text": "\u00AD&gt;&gt;&gt;&gt;&gt;[#{params['text']}]&lt;&lt;&lt;&lt;&lt;\n - #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"
       }
       # logger.debug reply_text
     end
