@@ -25,6 +25,10 @@ class ShadowtalkController < ApplicationController
 # A switch I'm thinking of using for checking that everything is kosher
     rules_followed = true
 
+# Don UserId: U0716T668
+# My UserId: U06V1NG1M
+
+
 # Get the proper toon name. Need to switch this to slack ID values
 # but I don't know how to get those without using the API
     case params['user_name']
@@ -32,6 +36,8 @@ class ShadowtalkController < ApplicationController
       toon_name = "Spooky"
     when "seanscian"
       toon_name = "Ella"
+    when "thursdaze"
+      toon_name = "Shugga Bear"
     else
       logger.debug "Failed in user_name check"
       rules_followed = false
@@ -43,6 +49,7 @@ class ShadowtalkController < ApplicationController
 
       render :json =>
       {
+        "username": params['user_name'],
         "response_type": "in_channel",
         "text": "\u00AD&gt;&gt;&gt;&gt;&gt;[#{params['text']}]&lt;&lt;&lt;&lt;&lt;\n - #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"
       }
