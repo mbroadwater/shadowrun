@@ -45,6 +45,9 @@ class ShadowtalkController < ApplicationController
       logger.debug reply_text
     end
 
+    # Build and send a simple JSON reply
+    #render :json => {"text": reply_text}
+    render :json => {"text": "test"}
 
   end
 end
