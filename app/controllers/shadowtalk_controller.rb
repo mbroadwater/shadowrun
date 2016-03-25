@@ -41,7 +41,11 @@ class ShadowtalkController < ApplicationController
       now_time = Time.new
       post_time = Time.new(now_time.year+59, now_time.month, now_time.day, now_time.hour, now_time.min, now_time.sec)
 
-      render :json => {"text": ">>>>>[#{params['text']}]<<<<< - #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"}
+      render :json =>
+      {
+        "text": "&lt&lt&lt&lt&lt[#{params['text']}]&gt&gt&gt&gt - #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>",
+        "response_type": "in_channel"
+      }
       # logger.debug reply_text
     end
 
