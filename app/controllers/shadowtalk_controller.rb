@@ -44,7 +44,7 @@ class ShadowtalkController < ApplicationController
       render :json =>
       {
         "response_type": "in_channel",
-        "text": "&lt; &lt; &lt; &lt; &lt; [#{params['text']}]&gt; &gt; &gt; &gt; &gt; - #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"
+        "text": "&gt;&gt;&gt;&gt;&gt;[#{params['text']}]&lt;&lt;&lt;&lt;&lt; - #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"
       }
       # logger.debug reply_text
     end
