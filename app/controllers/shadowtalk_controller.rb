@@ -39,6 +39,13 @@ class ShadowtalkController < ApplicationController
     when "thursdaze"
       toon_name = "Shugga Bear"
     else
+      render :json =>
+      {
+        "username": params['user_name'],
+        "response_type": "ephemeral",
+        "text": "NOOOOPE."
+        #"text": "\u00AD&gt;&gt;&gt;&gt;&gt;[#{params['text']}]&lt;&lt;&lt;&lt;&lt;\n - #{toon_name} <#{post_time.strftime("%H:%M:%S / %m-%d-%Y")}>"
+      }
       logger.debug "Failed in user_name check"
       rules_followed = false
     end
