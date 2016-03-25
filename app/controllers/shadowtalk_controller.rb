@@ -1,61 +1,62 @@
 class ShadowtalkController < ApplicationController
-  def show
-    if check_request_is_valid
-      formated_response = create_response_text
+  before_action :authenticate!
 
-      render :json =>
-      {
-        "response_type": "in_channel",
-        "text": formated_response
-      }
+  def show
+    render json: {
+      "response_type": "in_channel",
+      "text": create_response_text
+    }, status: 200
+  end
+
+  private
+
+  def authenticate!
+    unless request_is_valid?
+      render json: {
+        "response_type": "ephemeral",
+        "text": "You done messed up."
+      }, status: 401
     end
   end
 
-  def check_request_is_valid
+  def request_is_valid?
+    token_is_valid? && command_is_valid?
+  end
+
+  def token_is_valid?
     command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
-    rules_followed = true
 
-    if params['token'] != command_token
-      logger.debug "Failed in token check."
-      rules_followed = false
-    end
+    params[:token] == command_token
+  end
 
-    if params['command'] != "/sr"
-      logger.debug "Failed in command check."
-      rules_followed = false
-    end
-
-    return rules_followed
+  def command_is_valid?
+    params[:command] == "/sr"
   end
 
   def assign_toon_name
+    user_name = params[:user_name]
 
-    # Get the proper toon name. Need to switch this to slack ID values
-    # but I don't know how to get those without using the API
-    case params['user_name']
-    when "mikeb"
-      toon_name = "Spooky"
-    when "seanscian"
-      toon_name = "Ella"
-    when "thursdaze"
-      toon_name = "Shugga Bear"
-    end
+    toon_names = {
+      mikeb: "Spooky",
+      seanscian: "Ella",
+      thursdaze: "Shugga Bear"
+    }
 
-    return toon_name
+    return toon_names[user_name]
   end
 
   def create_response_text
     open_text = "\u00AD&gt;&gt;&gt;&gt;&gt;["
     close_text = "]&lt;&lt;&lt;&lt;&lt;"
 
-    toon_name = assign_toon_name
+    toon_name_text = assign_toon_name
 
-    now_time = Time.new
-    post_time = Time.new(now_time.year+59, now_time.month, now_time.day, now_time.hour, now_time.min, now_time.sec).strftime("%H:%M:%S / %m-%d-%Y")
+    post_time = Time.now + 59.years
+    post_time_text = post_time.strftime("%H:%M:%S / %m-%d-%Y")
 
-    formated_response = "#{open_text}#{params['text']}#{close_text}\n \u2014 #{toon_name} <#{post_time}>"
+    comment_text = params[:text]
 
-    return formated_response
+    "#{open_text}#{comment_text}#{close_text}\n \u2014 #{toon_name_text} <#{post_time_text}>"
   end
 
 end
