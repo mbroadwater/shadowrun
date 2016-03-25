@@ -45,7 +45,7 @@ class ShadowtalkController < ApplicationController
 
     if rules_followed
       now_time = Time.new
-      post_time = Time.new(now_time.year+59, now_time.month, now_time.day, now_time.hour, now_time.min, now_time.sec)
+      post_time = Time.new(now_time.year+59, now_time.month, now_time.day, now_time.hour-4, now_time.min, now_time.sec, )
 
       render :json =>
       {
