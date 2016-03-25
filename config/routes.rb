@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   get '/shadowtalk/', to: 'shadowtalk#show'
-  get '/shadowroll/', to: 'shadowroll#show'
+
+  get '/diceroll/', to: 'diceroll#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
