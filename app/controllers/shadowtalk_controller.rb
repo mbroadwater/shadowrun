@@ -1,9 +1,15 @@
+require 'net/http'
+require "uri"
+
 class ShadowtalkController < ApplicationController
   before_action :authenticate!
 
   def show
+    uri = params[:response_url]
+    logger.debug(uri)
     render json: {
       "response_type": "in_channel",
+      "Content-type": "application/json",
       "text": create_response_text
     }, status: 200
   end
@@ -25,7 +31,6 @@ class ShadowtalkController < ApplicationController
 
   def token_is_valid?
     command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
-
     params[:token] == command_token
   end
 
@@ -51,7 +56,7 @@ class ShadowtalkController < ApplicationController
 
     toon_name_text = assign_toon_name
 
-    post_time = Time.now + 59.years
+    post_time = Time.now + 59.years + Time.zone_offset("CST")
     post_time_text = post_time.strftime("%H:%M:%S / %m-%d-%Y")
 
     comment_text = params[:text]
