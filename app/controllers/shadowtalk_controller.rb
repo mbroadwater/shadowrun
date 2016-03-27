@@ -26,12 +26,16 @@ class ShadowtalkController < ApplicationController
   end
 
   def request_is_valid?
-    token_is_valid? && command_is_valid?
+    token_is_valid? && command_is_valid? && text_is_valid
   end
 
   def token_is_valid?
     command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
     params[:token] == command_token
+  end
+
+  def text_is_valid?
+    !logger.debug(params[:text].empty?)
   end
 
   def command_is_valid?
