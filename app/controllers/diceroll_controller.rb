@@ -14,18 +14,22 @@ class DicerollController < ApplicationController
     unless request_is_valid?
       render json: {
         "response_type": "ephemeral",
-        "text": "You done messed up."
+        "text": "Not a valid command."
       }, status: 401
     end
   end
 
   def request_is_valid?
-    token_is_valid? && command_is_valid?
+    token_is_valid? && command_is_valid? && text_is_valid?
   end
 
   def token_is_valid?
     command_token = "LbtuTe82Wy1ssjYTIasvCrsW"
     params[:token] == command_token
+  end
+
+  def text_is_valid?
+    !logger.debug(params[:text].empty?)
   end
 
   def command_is_valid?
