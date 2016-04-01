@@ -35,6 +35,7 @@ class ShadowtalkController < ApplicationController
   end
 
   def token_is_valid?
+    command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
     params[:token] == command_token
   end
 
