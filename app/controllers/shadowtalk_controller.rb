@@ -25,7 +25,7 @@ class ShadowtalkController < ApplicationController
     unless request_is_valid?
       render json: {
         "response_type": "ephemeral",
-        "text": "You done messed up.#{params[:token]}"
+        "text": "You done messed up."
       }, status: 401
     end
   end
@@ -35,7 +35,6 @@ class ShadowtalkController < ApplicationController
   end
 
   def token_is_valid?
-    command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
     params[:token] == command_token
   end
 
@@ -44,7 +43,7 @@ class ShadowtalkController < ApplicationController
   end
 
   def command_is_valid?
-    params[:command] == "/sr"
+    params[:command] == "/sr_old"
   end
 
   def assign_toon_name
