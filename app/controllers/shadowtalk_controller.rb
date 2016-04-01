@@ -1,24 +1,24 @@
 require 'net/http'
 
 class ShadowtalkController < ApplicationController
-#  skip_before_filter  :verify_authenticity_token
+  skip_before_filter  :verify_authenticity_token
   before_action :authenticate!
 
   def reply
-#    render json: {
-#      "response_type": "in_channel",
-#      "text": create_response_text
-#    }, status: 200
-
-    reply_host = 'hooks.slack.com'
 
     req = Net::HTTP::Post.new(reply_params[:response_url], initheader = {'Content-Type' => 'application/json'})
     req.body = {
           "response_type": "in_channel",
           "text": create_response_text
         }.to_json
-    response = Net::HTTP.new(reply_host).start {|http| http.request(req) }
-#    puts "Response #{response.code} #{response.message}:#{response.body}"
+    response = Net::HTTP.new('hooks.slack.com').start {|http| http.request(req)}
+    puts "Response #{response.code} #{response.message}:#{response.body}"
+
+    render json: {
+      "response_type": "in_channel",
+      "text": create_response_text
+    }, status: 200
+
   end
 
   private
