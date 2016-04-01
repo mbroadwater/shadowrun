@@ -2,8 +2,7 @@ require 'net/http'
 require "uri"
 
 class ShadowtalkController < ApplicationController
-  skip_before_filter  :verify_authenticity_token
-#  before_action :authenticate!
+  before_action :authenticate!
 
   def reply
     render json: {
