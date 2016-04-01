@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'welcome/index'
 
-  get '/shadowtalk/', to: 'shadowtalk#show'
+  get '/shadowtalk/', to: 'shadowtalk#reply'
+  post '/shadowtalk/', to: 'shadowtalk#reply'
 
   get '/diceroll/', to: 'diceroll#show'
 

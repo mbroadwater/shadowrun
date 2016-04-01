@@ -2,16 +2,25 @@ require 'net/http'
 require "uri"
 
 class ShadowtalkController < ApplicationController
-  before_action :authenticate!
+  skip_before_filter  :verify_authenticity_token
+#  before_action :authenticate!
 
-  def show
-    uri = params[:response_url]
-    logger.debug(uri)
-    render json: {
-      "response_type": "in_channel",
-      "Content-type": "application/json",
-      "text": create_response_text
-    }, status: 200
+  def reply
+#    render json: {
+#      "response_type": "in_channel",
+#      "text": create_response_text
+#    }, status: 200
+
+    req = Net::HTTP::Post.new(@uri, initheader = {'Content-Type' => 'application/json'})
+    req.body = {
+          "response_type": "in_channel",
+          "text": create_response_text
+        }.to_json
+    response = Net::HTTP.new(params[:response_url]).start {|http| http.request(req) }
+    puts "Response #{response.code} #{response.message}:#{response.body}"
+  end
+
+
   end
 
   private
@@ -20,13 +29,13 @@ class ShadowtalkController < ApplicationController
     unless request_is_valid?
       render json: {
         "response_type": "ephemeral",
-        "text": "You done messed up."
+        "text": "You done messed up.#{params[:token]}"
       }, status: 401
     end
   end
 
   def request_is_valid?
-    token_is_valid? && command_is_valid? && text_is_valid
+    token_is_valid? && command_is_valid? && text_is_valid?
   end
 
   def token_is_valid?
