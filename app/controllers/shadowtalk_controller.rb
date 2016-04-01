@@ -49,12 +49,12 @@ class ShadowtalkController < ApplicationController
   end
 
   def assign_toon_name
-    user_name = params[:user_name]
+    user_name = reply_params[:user_name]
 
     toon_names = {
-      mikeb: "Spooky",
-      seanscian: "Ella",
-      thursdaze: "Shugga Bear"
+      "mikeb" => "Spooky",
+      "seanscian" => "Ella",
+      "thursdaze" => "Shugga Bear"
     }
 
     return toon_names[user_name]
@@ -72,6 +72,10 @@ class ShadowtalkController < ApplicationController
     comment_text = params[:text]
 
     "#{open_text}#{comment_text}#{close_text}\n \u2014 #{toon_name_text} <#{post_time_text}>"
+  end
+
+  def reply_params
+    params.permit(:user_name, :token, :text, :command)
   end
 
 end
