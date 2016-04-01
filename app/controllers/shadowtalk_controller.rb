@@ -1,7 +1,7 @@
 require 'net/http'
 
 class ShadowtalkController < ApplicationController
-  skip_before_filter  :verify_authenticity_token
+  #skip_before_filter  :verify_authenticity_token
   before_action :authenticate!
 
   def reply
@@ -13,8 +13,8 @@ class ShadowtalkController < ApplicationController
         }.to_json
     response = Net::HTTP.new('hooks.slack.com').start {|http| http.request(req)}
     render json: {
-      "text": "Response #{response.code} #{response.message}:#{response.body}"
-    }, status: 200
+      "text": "Response #{response.message}:#{response.body}"
+    }, status: response.code
   end
 
   private
