@@ -6,18 +6,18 @@ class ShadowtalkController < ApplicationController
 #  before_action :authenticate!
 
   def reply
-#    render json: {
-#      "response_type": "in_channel",
-#      "text": create_response_text
-#    }, status: 200
+    render json: {
+      "response_type": "in_channel",
+      "text": create_response_text
+    }, status: 200
 
-    req = Net::HTTP::Post.new(params[:response_url]), initheader = {'Content-Type' => 'application/json'})
-    req.body = {
-          "response_type": "in_channel",
-          "text": create_response_text
-        }.to_json
-    response = Net::HTTP.new(params[:response_url]).start {|http| http.request(req) }
-    puts "Response #{response.code} #{response.message}:#{response.body}"
+#    req = Net::HTTP::Post.new(params[:response_url]), initheader = {'Content-Type' => 'application/json'})
+#    req.body = {
+#          "response_type": "in_channel",
+#          "text": create_response_text
+#        }.to_json
+#    response = Net::HTTP.new(params[:response_url]).start {|http| http.request(req) }
+#    puts "Response #{response.code} #{response.message}:#{response.body}"
   end
 
 
