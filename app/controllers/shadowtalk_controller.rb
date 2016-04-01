@@ -5,17 +5,19 @@ class ShadowtalkController < ApplicationController
   before_action :authenticate!
 
   def reply
-    render json: {
-      "response_type": "in_channel",
-      "text": create_response_text
-    }, status: 200
+#    render json: {
+#      "response_type": "in_channel",
+#      "text": create_response_text
+#    }, status: 200
 
-#    req = Net::HTTP::Post.new(params[:response_url]), initheader = {'Content-Type' => 'application/json'})
-#    req.body = {
-#          "response_type": "in_channel",
-#          "text": create_response_text
-#        }.to_json
-#    response = Net::HTTP.new(params[:response_url]).start {|http| http.request(req) }
+    reply_host = 'hooks.slack.com'
+
+    req = Net::HTTP::Post.new(reply_params[:response_url], initheader = {'Content-Type' => 'application/json'})
+    req.body = {
+          "response_type": "in_channel",
+          "text": create_response_text
+        }.to_json
+    response = Net::HTTP.new(reply_host).start {|http| http.request(req) }
 #    puts "Response #{response.code} #{response.message}:#{response.body}"
   end
 
@@ -37,15 +39,15 @@ class ShadowtalkController < ApplicationController
 
   def token_is_valid?
     command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
-    params[:token] == command_token
+    reply_params[:token] == command_token
   end
 
   def text_is_valid?
-    !params[:text].empty?
+    !reply_params[:text].empty?
   end
 
   def command_is_valid?
-    params[:command] == "/sr_old"
+    reply_params[:command] == "/sr_old"
   end
 
   def assign_toon_name
@@ -69,13 +71,13 @@ class ShadowtalkController < ApplicationController
     post_time = Time.now + 59.years + Time.zone_offset("CST")
     post_time_text = post_time.strftime("%H:%M:%S / %m-%d-%Y")
 
-    comment_text = params[:text]
+    comment_text = reply_params[:text]
 
     "#{open_text}#{comment_text}#{close_text}\n \u2014 #{toon_name_text} <#{post_time_text}>"
   end
 
   def reply_params
-    params.permit(:user_name, :token, :text, :command)
+    params.permit(:user_name, :token, :text, :command, :response_url)
   end
 
 end
