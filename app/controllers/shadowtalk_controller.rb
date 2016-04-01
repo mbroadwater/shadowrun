@@ -11,7 +11,7 @@ class ShadowtalkController < ApplicationController
 #      "text": create_response_text
 #    }, status: 200
 
-    req = Net::HTTP::Post.new(@uri, initheader = {'Content-Type' => 'application/json'})
+    req = Net::HTTP::Post.new(params[:response_url]), initheader = {'Content-Type' => 'application/json'})
     req.body = {
           "response_type": "in_channel",
           "text": create_response_text
