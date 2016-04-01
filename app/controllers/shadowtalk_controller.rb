@@ -6,19 +6,15 @@ class ShadowtalkController < ApplicationController
 
   def reply
 
-#    req = Net::HTTP::Post.new(reply_params[:response_url], initheader = {'Content-Type' => 'application/json'})
-#    req.body = {
-#          "response_type": "in_channel",
-#          "text": create_response_text
-#        }.to_json
-#    response = Net::HTTP.new('hooks.slack.com').start {|http| http.request(req)}
-#    puts "Response #{response.code} #{response.message}:#{response.body}"
-
+    req = Net::HTTP::Post.new(params[:response_url], initheader = {'Content-Type' => 'application/json'})
+    req.body = {
+          "response_type": "in_channel",
+          "text": create_response_text
+        }.to_json
+    response = Net::HTTP.new('hooks.slack.com').start {|http| http.request(req)}
     render json: {
-      "response_type": "in_channel",
-      "text": create_response_text
+      "text": "Response #{response.code} #{response.message}:#{response.body}"
     }, status: 200
-
   end
 
   private
@@ -75,8 +71,8 @@ class ShadowtalkController < ApplicationController
     "#{open_text}#{comment_text}#{close_text}\n \u2014 #{toon_name_text} <#{post_time_text}>"
   end
 
-  def reply_params
-    params.permit(:user_name, :token, :text, :command, :response_url)
-  end
+#  def reply_params
+#    params.permit(:user_name, :token, :text, :command, :response_url)
+#  end
 
 end
