@@ -1,7 +1,5 @@
-require 'net/http'
-require "uri"
-
 class ShadowtalkController < ApplicationController
+#  skip_before_filter  :verify_authenticity_token
   before_action :authenticate!
 
   def reply
@@ -17,9 +15,6 @@ class ShadowtalkController < ApplicationController
 #        }.to_json
 #    response = Net::HTTP.new(params[:response_url]).start {|http| http.request(req) }
 #    puts "Response #{response.code} #{response.message}:#{response.body}"
-  end
-
-
   end
 
   private
