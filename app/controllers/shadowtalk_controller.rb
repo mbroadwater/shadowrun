@@ -25,13 +25,14 @@ class ShadowtalkController < ApplicationController
     unless request_is_valid?
       render json: {
         "response_type": "ephemeral",
-        "text": "You done messed up."
+        "text": "um?"
       }, status: 401
     end
   end
 
   def request_is_valid?
-    token_is_valid? && command_is_valid? && text_is_valid?
+    # token_is_valid? && command_is_valid? && text_is_valid?
+    text_is_valid?
   end
 
   def token_is_valid?
@@ -40,7 +41,7 @@ class ShadowtalkController < ApplicationController
   end
 
   def text_is_valid?
-    !logger.debug(params[:text].empty?)
+    !params[:text].empty?
   end
 
   def command_is_valid?
