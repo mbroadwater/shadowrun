@@ -8,8 +8,8 @@ class ShadowtalkController < ApplicationController
 
     req = Net::HTTP::Post.new(params[:response_url], initheader = {'Content-Type' => 'application/json'})
     req.body = {
-          "response_type": "in_channel",
-          "text": create_response_text
+          response_type: "in_channel",
+          text: create_response_text
         }.to_json
     response = Net::HTTP.new('hooks.slack.com').start {|http| http.request(req)}
     render json: {
