@@ -1,3 +1,5 @@
+require 'net/http'
+
 class ShadowtalkController < ApplicationController
 #  skip_before_filter  :verify_authenticity_token
   before_action :authenticate!
