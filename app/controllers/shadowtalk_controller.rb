@@ -14,8 +14,6 @@ class ShadowtalkController < ApplicationController
 #    response = Net::HTTP.new('hooks.slack.com').start {|http| http.request(req)}
 #    puts "Response #{response.code} #{response.message}:#{response.body}"
 
-    logger.debug(params)
-
     render json: {
       "response_type": "in_channel",
       "text": create_response_text
@@ -40,19 +38,19 @@ class ShadowtalkController < ApplicationController
 
   def token_is_valid?
     command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
-    reply_params[:token] == command_token
+    params[:token] == command_token
   end
 
   def text_is_valid?
-    !reply_params[:text].empty?
+    !params[:text].empty?
   end
 
   def command_is_valid?
-    reply_params[:command] == "/sr_old"
+    params[:command] == "/sr_old"
   end
 
   def assign_toon_name
-    user_name = reply_params[:user_name]
+    user_name = params[:user_name]
 
     toon_names = {
       "mikeb" => "Spooky",
@@ -72,7 +70,7 @@ class ShadowtalkController < ApplicationController
     post_time = Time.now + 59.years + Time.zone_offset("CST")
     post_time_text = post_time.strftime("%H:%M:%S / %m-%d-%Y")
 
-    comment_text = reply_params[:text]
+    comment_text = params[:text]
 
     "#{open_text}#{comment_text}#{close_text}\n \u2014 #{toon_name_text} <#{post_time_text}>"
   end
