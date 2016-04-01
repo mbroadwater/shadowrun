@@ -33,8 +33,7 @@ class ShadowtalkController < ApplicationController
   end
 
   def request_is_valid?
-    # token_is_valid? && command_is_valid? && text_is_valid?
-    text_is_valid?
+    token_is_valid? && command_is_valid? && text_is_valid?
   end
 
   def token_is_valid?
