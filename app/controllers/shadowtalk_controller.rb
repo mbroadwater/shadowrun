@@ -1,19 +1,30 @@
 require 'net/http'
 
+
 class ShadowtalkController < ApplicationController
-  #skip_before_filter  :verify_authenticity_token
+  skip_before_filter  :verify_authenticity_token
   before_action :authenticate!
 
   def reply
+    payload = {
+      text: create_response_text,
+    }
 
-    req = Net::HTTP::Post.new(params[:response_url], initheader = {'Content-Type' => 'application/json'})
-    req.body = {
-          response_type: "in_channel",
-          text: create_response_text
-        }.to_json
-    response = Net::HTTP.new('hooks.slack.com').start {|http| http.request(req)}
-    render json: {
-      "text": "Response #{response.message}:#{response.body}"
+    #uri = URI.parse("https://hooks.slack.com/services/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")
+    uri = URI.parse(reply_params[:response_url])
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+
+    request = Net::HTTP::Post.new(uri.path, {'Content-Type' =>'application/json'})
+    request.body = payload.to_json
+
+    response = http.request(request)
+
+    render plain: {
+      "message": response.message,
+      "body": response.body,
+      "code": response.code
     }, status: response.code
   end
 
@@ -23,7 +34,7 @@ class ShadowtalkController < ApplicationController
     unless request_is_valid?
       render json: {
         "response_type": "ephemeral",
-        "text": "um?"
+        "text": "There was an error."
       }, status: 401
     end
   end
@@ -34,15 +45,15 @@ class ShadowtalkController < ApplicationController
 
   def token_is_valid?
     command_token = "JbwzU8FIkfv6GOXzKsfYsJd5"
-    params[:token] == command_token
+    reply_params[:token] == command_token
   end
 
   def text_is_valid?
-    !params[:text].empty?
+    !reply_params[:text].empty?
   end
 
   def command_is_valid?
-    params[:command] == "/sr_old"
+    reply_params[:command] == "/sr_old"
   end
 
   def assign_toon_name
@@ -71,8 +82,8 @@ class ShadowtalkController < ApplicationController
     "#{open_text}#{comment_text}#{close_text}\n \u2014 #{toon_name_text} <#{post_time_text}>"
   end
 
-#  def reply_params
-#    params.permit(:user_name, :token, :text, :command, :response_url)
-#  end
+  def reply_params
+    params.permit(:user_name, :token, :text, :command, :response_url)
+  end
 
 end

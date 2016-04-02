@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
-
   get '/shadowtalk/', to: 'shadowtalk#reply'
   post '/shadowtalk/', to: 'shadowtalk#reply'
 
