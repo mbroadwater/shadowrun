@@ -21,12 +21,7 @@ class ShadowtalkController < ApplicationController
     request.body = payload.to_json
 
     response = http.request(request)
-
-#    render json: {
-#      "message": response.message,
-#      "body": response.body,
-#      "code": response.code
-#    }, status: response.code
+    render nothing: true, status: response.code
   end
 
   private
