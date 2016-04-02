@@ -7,7 +7,8 @@ class ShadowtalkController < ApplicationController
 
   def reply
     payload = {
-      text: create_response_text,
+      response_type: "in_channel",
+      text: create_response_text
     }
 
     #uri = URI.parse("https://hooks.slack.com/services/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")
