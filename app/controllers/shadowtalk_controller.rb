@@ -22,11 +22,11 @@ class ShadowtalkController < ApplicationController
 
     response = http.request(request)
 
-    render plain: {
-      "message": response.message,
-      "body": response.body,
-      "code": response.code
-    }, status: response.code
+#    render json: {
+#      "message": response.message,
+#      "body": response.body,
+#      "code": response.code
+#    }, status: response.code
   end
 
   private
