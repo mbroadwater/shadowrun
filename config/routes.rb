@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get '/shadowtalk/', to: 'shadowtalk#reply'
-  post '/shadowtalk/', to: 'shadowtalk#reply'
+  resources :users
+
+  get '/shadowtalk/', to: 'shadowtalk#comment'
+  post '/shadowtalk/', to: 'shadowtalk#commend'
 
   get '/diceroll/', to: 'diceroll#show'
 

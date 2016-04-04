@@ -5,10 +5,10 @@ class ShadowtalkController < ApplicationController
   skip_before_filter  :verify_authenticity_token
   before_action :authenticate!
 
-  def reply
+  def comment
     payload = {
       response_type: "in_channel",
-      text: create_response_text
+      text: create_comment_text
     }
 
     #uri = URI.parse("https://hooks.slack.com/services/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")
@@ -64,7 +64,7 @@ class ShadowtalkController < ApplicationController
     return toon_names[user_name]
   end
 
-  def create_response_text
+  def create_comment_text
     open_text = "\u00AD&gt;&gt;&gt;&gt;&gt;["
     close_text = "]&lt;&lt;&lt;&lt;&lt;"
 
