@@ -17,8 +17,12 @@ module SlackGamebot
       end
 
       def self.build_reply_string(dice_roll)
-        roll_result = dice_roll.execute
-        "Rolled #{dice_roll.quantity} and #{dice_roll.edge} edge with a result of #{roll_result}"
+        dice_roll.execute
+
+        "Outcome: #{dice_roll.outcome}\n"\
+        "Pool: #{dice_roll.quantity}\tEdge: #{dice_roll.edge}\n"\
+        "Explosions: #{dice_roll.explosions}\tHits #{dice_roll.hits}\tOnes: #{dice_roll.ones}\n"\
+        "#{dice_roll.hits} Hits"
       end
     end
   end
