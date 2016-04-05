@@ -1,7 +1,7 @@
 require 'sinatra/base'
 
 module SlackGamebot
-  class Web < Sinatra::base
+  class Web < Sinatra::Base
     get '/' do
       'Gaming is good for you!'
     end
