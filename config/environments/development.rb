@@ -39,5 +39,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  ENV['SLACK_API_TOKEN'] = "xoxb-32453424433-WOsLSlYmOqI8Gs8UZX7gl4Xf";
+  ENV['SLACK_API_TOKEN'] = "xoxb-32453424433-ukcNnlMjoQJ2CKOJp9I1PTFp";
 end
