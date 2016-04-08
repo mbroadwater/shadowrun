@@ -11,14 +11,13 @@ module SlackGamebot
 
       def self.call(client, data, match)
         if data.channel == CHANNEL_ID_PRIVATE or data.channel == CHANNEL_ID_TEST
-          reponse = HTTParty.post("https://slack.com/api/chat.delete",
+          logger.debug(HTTParty.post("https://slack.com/api/chat.delete",
             :query => {
               :token => Rails.application.secrets.slack_secret_key,
               :ts => data.ts,
               :channel => data.channel
             },
-            headers: {'Content-Type' => 'application/json'})
-          logger.debug(response.inspect)
+            headers: {'Content-Type' => 'application/json'}))
 
           client.say(channel: data.channel, text: create_comment_text(data.user, data.text))
         end
