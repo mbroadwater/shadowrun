@@ -8,3 +8,5 @@
 tmp/pids/server.pid
 
 app/secrets.yml
+
+config/secrets.yml
