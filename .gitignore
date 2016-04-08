@@ -6,3 +6,5 @@
 *.pid
 
 tmp/pids/server.pid
+
+app/secrets.yml

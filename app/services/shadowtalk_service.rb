@@ -1,3 +1,0 @@
-class ShadowtalkService
-
-end
