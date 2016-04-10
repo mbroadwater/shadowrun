@@ -4,7 +4,7 @@ module SlackGamebot
   module Commands
 
     class DeleteUserMessage < SlackRubyBot::Commands::Base
-      command (/./)
+      #command (/./)
 
       def self.call(client, data, match)
         HTTParty.post("https://slack.com/api/chat.delete",
