@@ -5926,3 +5926,14 @@ Processing by UsersController#show as HTML
   Rendered layouts/_header.html.erb (1.5ms)
   Rendered layouts/_footer.html.erb (0.1ms)
 Completed 200 OK in 97ms (Views: 95.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-04-14 13:08:23 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (13.6ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 762146114]]
+  Rendered layouts/_header.html.erb (18.1ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 525ms (Views: 514.6ms | ActiveRecord: 2.5ms)
