@@ -5937,3 +5937,24 @@ Processing by StaticPagesController#home as HTML
   Rendered layouts/_header.html.erb (18.1ms)
   Rendered layouts/_footer.html.erb (0.4ms)
 Completed 200 OK in 525ms (Views: 514.6ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/" for ::1 at 2016-04-14 13:40:28 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (1.2ms)
+  Rendered layouts/_shim.html.erb (0.2ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 762146114]]
+  Rendered layouts/_header.html.erb (9.5ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 445ms (Views: 437.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/login" for ::1 at 2016-04-14 13:40:31 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (12.0ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 762146114]]
+  Rendered layouts/_header.html.erb (1.3ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 117ms (Views: 116.0ms | ActiveRecord: 0.2ms)
