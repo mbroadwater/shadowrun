@@ -9,7 +9,7 @@ tmp/pids/server.pid
 
 app/secrets.yml
 
-config/secrets.yml
+# config/secrets.yml
 
 # Ignore application configuration
 /config/application.yml
