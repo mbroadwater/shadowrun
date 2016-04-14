@@ -80,8 +80,6 @@ GEM
       websocket-driver (>= 0.5.1)
     figaro (1.1.1)
       thor (~> 0.14)
-    foreman (0.78.0)
-      thor (~> 0.19.1)
     giphy (2.0.2)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9)
@@ -228,7 +226,6 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   figaro
-  foreman
   httparty
   jbuilder (~> 2.0)
   jquery-rails
