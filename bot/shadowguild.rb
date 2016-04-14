@@ -5,6 +5,8 @@ require 'commands/shadow_talk'
 
 Thread.abort_on_exception = true
 
-Thread.new do
-  Bot.run
+if !Rails.env.development?
+  Thread.new do
+    Bot.run
+  end
 end
