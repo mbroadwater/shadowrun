@@ -1,8 +1,7 @@
 User.create!(
   name:  "Michael Broadwater",
   email: "mike.broadwater@gmail.com",
-  password: "test12",
-  password_confirmation: "test12",
+  password: "test1234",
+  password_confirmation: "test1234",
   admin: true
 )
-end
