@@ -14,6 +14,7 @@ class CharactersController < ApplicationController
   end
 
   def edit
+    @character = Character.find(params[:id])
   end
 
   def destroy
@@ -22,10 +23,20 @@ class CharactersController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+  def update
+    @character = Character.find(params[:id])
+    if @character.update_attributes(character_params)
+      flash[:success] = "Character Updated"
+      redirect_to current_user
+    else
+      render 'edit'
+    end
+  end
+
   private
 
     def character_params
-      params.require(:character).permit(:description)
+      params.require(:character).permit(:name, :description)
     end
 
     def correct_user

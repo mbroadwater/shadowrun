@@ -5,6 +5,7 @@
   <span class="timestamp">
     <% if current_user?(character.user) %>
       <%= link_to "delete", character, method: :delete, data: { confirm: "Are you sure?" } %>
+      <%= link_to "edit", edit_character_path(character) %>
     <% end %>
   </span>
 </li>
