@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415172137) do
+ActiveRecord::Schema.define(version: 20160416001719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20160415172137) do
   add_index "characters", ["user_id", "created_at"], name: "index_characters_on_user_id_and_created_at", using: :btree
   add_index "characters", ["user_id"], name: "index_characters_on_user_id", using: :btree
 
+  create_table "defenses", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "normal_val"
+    t.string   "type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "defenses", ["character_id"], name: "index_defenses_on_character_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -38,4 +48,5 @@ ActiveRecord::Schema.define(version: 20160415172137) do
   end
 
   add_foreign_key "characters", "users"
+  add_foreign_key "defenses", "characters"
 end

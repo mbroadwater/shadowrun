@@ -12,4 +12,5 @@ Rails.application.routes.draw do
 
   resources :users
   resources :characters
+  resources :defenses, only: [:create, :destroy, :update, :edit]
 end
