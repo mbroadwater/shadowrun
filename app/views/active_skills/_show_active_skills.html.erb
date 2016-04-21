@@ -1,0 +1,11 @@
+<h2>Active Skills</h2>
+<% @character.active_skills.each do |active_skill| %>
+  <strong><%= BaseAttribute.find(active_skill.base_skill_id).name %></strong>:
+  <%= active_skill.value_base %>
+  <% if can_edit %>
+  <%= link_to 'Delete', [active_skill.character, active_skill],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<br>
+<% end %>

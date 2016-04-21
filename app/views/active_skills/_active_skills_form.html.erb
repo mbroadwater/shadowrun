@@ -1,0 +1,17 @@
+<h2>Add a skill:</h2>
+<%= form_for([@character, @character.active_skills.build]) do |f| %>
+
+  <%= f.select(:base_skill_id) do %>
+    <% BaseSkill.all.each do |base_skill| -%>
+      <%= content_tag(:option, base_skill.name, value: base_skill.id) %>
+    <% end %>
+  <% end %>
+
+  <p>
+    <%= f.label :value_base %>
+    <%= f.number_field :value_base %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

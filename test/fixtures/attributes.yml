@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  value_base: 1
+  value_modified: 1
+  max_natural: 1
+  max_augmented: 1
+  category: MyString
+  character_id: 
+
+two:
+  name: MyString
+  value_base: 1
+  value_modified: 1
+  max_natural: 1
+  max_augmented: 1
+  category: MyString
+  character_id: 

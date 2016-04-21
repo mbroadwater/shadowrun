@@ -1,0 +1,10 @@
+<h2>Defenses</h2>
+<% @character.defenses.each do |defense| %>
+  <strong><%= defense.def_type %> Defense</strong>: <%= defense.value_normal %>
+  <% if can_edit %>
+  <%= link_to 'Delete', [defense.character, defense],
+    method: :delete,
+    data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<br>
+<% end %>

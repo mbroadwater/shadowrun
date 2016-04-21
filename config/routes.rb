@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   resources :users
-  resources :characters
-  resources :defenses, only: [:create, :destroy, :update, :edit]
+  resources :characters do
+    resources :defenses
+    resources :char_attributes
+    resources :active_skills
+  end
+
+  resources :base_attributes
+
 end

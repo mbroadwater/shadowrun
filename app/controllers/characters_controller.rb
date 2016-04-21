@@ -1,6 +1,7 @@
 class CharactersController < ApplicationController
   before_action :logged_in_user, only: [:create, :edit, :destroy]
   before_action :correct_user, only: :destroy
+  before_filter :check_for_cancel, :only => [:create, :update]
 
   def create
     @character = current_user.characters.build(character_params)
@@ -33,14 +34,24 @@ class CharactersController < ApplicationController
     end
   end
 
+  def show
+    @character = Character.find(params[:id])
+  end
+
   private
 
     def character_params
-      params.require(:character).permit(:name, :description)
+      params.require(:character)
     end
 
     def correct_user
       @character = current_user.characters.find_by(id: params[:id])
       redirect_to root_url if @character.nil?
+    end
+
+    def check_for_cancel
+      if params[:commit] == "Cancel"
+        redirect_to current_user
+      end
     end
 end

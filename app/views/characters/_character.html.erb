@@ -1,11 +1,10 @@
 <li id="character-<%= character.id %>">
   <%= link_to gravatar_for(character.user, size: 40), character.user %>
-  <span class="user"><%= link_to character.user.name, character.user %></span>
-  <span class="description"><%= character.description %></span>
-  <span class="timestamp">
+  <span class="description"><%= character.name %></span>
+  <span class="character">
     <% if current_user?(character.user) %>
-      <%= link_to "delete", character, method: :delete, data: { confirm: "Are you sure?" } %>
       <%= link_to "edit", edit_character_path(character) %>
+      <%= link_to "delete", character, method: :delete, data: { confirm: "Are you sure?" } %>
     <% end %>
   </span>
 </li>

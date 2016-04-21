@@ -1,0 +1,15 @@
+<h2>Attributes</h2>
+<% @character.char_attributes.each do |char_attribute| %>
+  <strong><%= BaseAttribute.find(char_attribute.base_attribute_id).name %></strong>:
+  <% if char_attribute.value_base == char_attribute.value_modified || char_attribute.value_modified.nil? %>
+    <%= char_attribute.value_base %>
+  <% else %>
+    <%= char_attribute.value_base %>/<%= char_attribute.value_modified %>
+  <% end %>
+  <% if can_edit %>
+  <%= link_to 'Delete', [char_attribute.character, char_attribute],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<br>
+<% end %>

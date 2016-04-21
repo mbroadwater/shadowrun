@@ -13,7 +13,32 @@
       <%= f.text_area :description, class: 'form-control' %>
 
       <%= f.submit "Save changes", class: "btn btn-primary" %>
+      <%= f.submit "Cancel", class: "btn btn-primary" %>
     <% end %>
 
+
+    <section class="character_form">
+      <%= render 'char_attributes/show_char_attributes', can_edit: true %>
+    </section>
+
+    <section class="character_form">
+      <%= render 'char_attributes/char_attribute_form' %>
+    </section>
+
+    <section class="character_form">
+      <%= render 'defenses/show_defenses', can_edit: true %>
+    </section>
+
+    <section class="character_form">
+      <%= render 'defenses/defense_form' %>
+    </section>
+
+    <section class="character_form">
+      <%= render 'active_skills/show_active_skills', can_edit: false %>
+    </section>
+
+    <section class="character_form">
+      <%= render 'active_skills/active_skills_form'%>
+    </section>
   </div>
 </div>

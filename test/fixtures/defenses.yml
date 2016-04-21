@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  character_id: 
-  normal_val: 1
   type: 
+  normal: 1
+  character_id: 
 
 two:
-  character_id: 
-  normal_val: 1
   type: 
+  normal: 1
+  character_id: 

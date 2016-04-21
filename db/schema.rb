@@ -11,10 +11,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416001719) do
+ActiveRecord::Schema.define(version: 20160421025739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_skills", force: :cascade do |t|
+    t.integer  "base_skill_id"
+    t.integer  "value_base"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "character_id"
+  end
+
+  add_index "active_skills", ["base_skill_id"], name: "index_active_skills_on_base_skill_id", using: :btree
+  add_index "active_skills", ["character_id"], name: "index_active_skills_on_character_id", using: :btree
+
+  create_table "base_attributes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "category"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "base_skills", force: :cascade do |t|
+    t.string   "name"
+    t.string   "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "char_attributes", force: :cascade do |t|
+    t.integer  "value_base"
+    t.integer  "value_modified"
+    t.integer  "max_natural"
+    t.integer  "max_augmented"
+    t.string   "category"
+    t.integer  "character_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "base_attribute_id"
+  end
+
+  add_index "char_attributes", ["base_attribute_id"], name: "index_char_attributes_on_base_attribute_id", using: :btree
+  add_index "char_attributes", ["character_id"], name: "index_char_attributes_on_character_id", using: :btree
 
   create_table "characters", force: :cascade do |t|
     t.text     "description"
@@ -28,9 +69,9 @@ ActiveRecord::Schema.define(version: 20160416001719) do
   add_index "characters", ["user_id"], name: "index_characters_on_user_id", using: :btree
 
   create_table "defenses", force: :cascade do |t|
+    t.string   "def_type"
+    t.integer  "value_normal"
     t.integer  "character_id"
-    t.integer  "normal_val"
-    t.string   "type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -47,6 +88,10 @@ ActiveRecord::Schema.define(version: 20160416001719) do
     t.boolean  "admin"
   end
 
+  add_foreign_key "active_skills", "base_skills"
+  add_foreign_key "active_skills", "characters"
+  add_foreign_key "char_attributes", "base_attributes"
+  add_foreign_key "char_attributes", "characters"
   add_foreign_key "characters", "users"
   add_foreign_key "defenses", "characters"
 end
