@@ -1,10 +1,18 @@
 <h2>Defenses</h2>
 <% @character.defenses.each do |defense| %>
-  <strong><%= defense.def_type %> Defense</strong>: <%= defense.value_normal %>
+  <div class="col-md-4">
+    <strong><%= defense.def_type %></strong>:
+  </div>
+  <div class="col-md-4">
+    <%= defense.value_normal %>
+  </div>
   <% if can_edit %>
-  <%= link_to 'Delete', [defense.character, defense],
-    method: :delete,
-    data: { confirm: 'Are you sure?' } %>
+    <div class="col-md-4">
+      <%= link_to 'Delete', [defense.character, defense],
+        method: :delete,
+        data: { confirm: 'Are you sure?' } %>
+    </div>
   <% end %>
-<br>
+  <br>
 <% end %>
+<p>

@@ -31,6 +31,8 @@ gem 'faker'
 gem 'will_paginate',           '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 
+gem 'active_model_serializers'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
@@ -47,6 +49,7 @@ gem 'slack-ruby-bot'
 gem 'react-rails'
 gem 'sprockets-coffee-react'
 gem 'js-routes'
+gem 'responders'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

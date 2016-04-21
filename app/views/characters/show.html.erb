@@ -17,6 +17,12 @@
 
   <div class="col-md-4">
     <section class="character_form">
+      <%= render 'active_skills/show_active_skills', can_edit: false %>
+    </section>
+  </div>
+
+  <div class="col-md-4">
+    <section class="character_form">
       <%= render 'char_attributes/show_char_attributes', can_edit: false %>
     </section>
   </div>
@@ -24,12 +30,6 @@
   <div class="col-md-4">
     <section class="character_form">
       <%= render 'defenses/show_defenses', can_edit: false %>
-    </section>
-  </div>
-
-  <div class="col-md-4">
-    <section class="character_form">
-      <%= render 'active_skills/show_active_skills', can_edit: false %>
     </section>
   </div>
 </div>

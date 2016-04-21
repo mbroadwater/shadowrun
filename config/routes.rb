@@ -17,6 +17,19 @@ Rails.application.routes.draw do
     resources :active_skills
   end
 
-  resources :base_attributes
+  # resources :base_attributes
+  # resources :base_skills
 
+  #api
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :users, only: [:show]
+      resources :characters, only: [:show] do
+        resources :defenses, only: [:show]
+        resources :char_attributes, only: [:show]
+        resources :active_skills, only: [:show]
+      end
+
+    end
+  end
 end

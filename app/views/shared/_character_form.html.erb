@@ -1,8 +1,0 @@
-<%= form_for(@character) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_field :name, placeholder: "Name your new character" %>
-    <%= f.text_area :description, placeholder: "Describe new character..." %>
-  </div>
-  <%= f.submit "Save", class: "btn btn-primary" %>
-<% end %>

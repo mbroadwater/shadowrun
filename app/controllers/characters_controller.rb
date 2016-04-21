@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   before_action :logged_in_user, only: [:create, :edit, :destroy]
   before_action :correct_user, only: :destroy
-  before_filter :check_for_cancel, :only => [:create, :update]
+  # before_filter :check_for_cancel, :only => [:create, :update]
 
   def create
     @character = current_user.characters.build(character_params)
@@ -28,7 +28,7 @@ class CharactersController < ApplicationController
     @character = Character.find(params[:id])
     if @character.update_attributes(character_params)
       flash[:success] = "Character Updated"
-      redirect_to current_user
+      redirect_to edit_character_path(@character)
     else
       render 'edit'
     end
@@ -41,7 +41,7 @@ class CharactersController < ApplicationController
   private
 
     def character_params
-      params.require(:character)
+      params.require(:character).permit(:name, :description)
     end
 
     def correct_user
@@ -49,9 +49,9 @@ class CharactersController < ApplicationController
       redirect_to root_url if @character.nil?
     end
 
-    def check_for_cancel
-      if params[:commit] == "Cancel"
-        redirect_to current_user
-      end
-    end
+    # def check_for_cancel
+    #   if params[:commit] == "Cancel"
+    #     redirect_to current_user
+    #   end
+    # end
 end

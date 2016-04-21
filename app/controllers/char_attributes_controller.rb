@@ -7,8 +7,8 @@ class CharAttributesController < ApplicationController
 
   def destroy
     @character = Character.find(params[:character_id])
-    @char_attributes = @character.char_attributes.find(params[:id])
-    @char_attributes.destroy
+    @char_attribute = @character.char_attributes.find(params[:id])
+    @char_attribute.destroy
     redirect_to edit_character_path(@character)
   end
 
