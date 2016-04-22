@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :defenses
     resources :char_attributes
     resources :active_skills
+    resources :character_details
   end
 
   # resources :base_attributes

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  character_id: 
+  real_name: MyString
+  concept: MyString
+  description: MyString
+  background: MyString
+  metatype: MyString
+  gender: MyString
+  hair: MyString
+  eyes: MyString
+  ethnicity: MyString
+  skin: MyString
+
+two:
+  character_id: 
+  real_name: MyString
+  concept: MyString
+  description: MyString
+  background: MyString
+  metatype: MyString
+  gender: MyString
+  hair: MyString
+  eyes: MyString
+  ethnicity: MyString
+  skin: MyString

@@ -1,12 +1,44 @@
 <%= form_for(@character) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
 
-  <%= f.label :description %>
-  <%= f.text_area :description, class: 'form-control' %>
+  <%= f.fields_for :character_detail do |f2| %>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="field">
+          <%= f2.label "Real Name" %>
+          <%= f2.text_field :real_name %>
+          <%= f2.label "Concept" %>
+          <%= f2.text_field :concept %>
+          <%= f2.label "Description" %>
+          <%= f2.text_area :description, rows: 10 %>
+          <%= f2.label "Background" %>
+          <%= f2.text_area :background, rows: 20 %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="field">
+          <%= f2.label "Metatype" %>
+          <%= f2.text_field :metatype %>
+          <%= f2.label "Gender" %>
+          <%= f2.text_field :gender %>
+          <%= f2.label "Ethnicity" %>
+          <%= f2.text_field :ethnicity %>
+          <%= f2.label "Hair" %>
+          <%= f2.text_field :hair %>
+          <%= f2.label "Eyes" %>
+          <%= f2.text_field :eyes %>
+          <%= f2.label "Skin color" %>
+          <%= f2.text_field :skin %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <%= f.submit "Update details", class: "btn btn-default" %>
-  <!-- <%= f.submit "Cancel", class: "btn btn-primary" %> -->
+  <%= f.submit "Cancel", class: "btn btn-default" %>
 <% end %>

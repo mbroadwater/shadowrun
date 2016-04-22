@@ -41,7 +41,7 @@ class CharactersController < ApplicationController
   private
 
     def character_params
-      params.require(:character).permit(:name, :description)
+      params.require(:character).permit(:name, character_detail_attributes: [:real_name, :concept, :description, :background, :metatype, :gender, :hair, :eyes, :ethnicity, :skin])
     end
 
     def correct_user

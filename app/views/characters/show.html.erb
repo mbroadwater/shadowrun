@@ -3,27 +3,20 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for(@character) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-
-      <%= f.label :name %>
-      <%= @character.name %>
-      <br>
-
-      <%= f.label :description %>
-      <%= @character.description %>
-    <% end %>
-  </div>
-
-  <div class="col-md-4">
     <section class="character_form">
-      <%= render 'active_skills/show_active_skills', can_edit: false %>
+      <%= render 'show_character_details', can_edit: false %>
     </section>
   </div>
 
   <div class="col-md-4">
     <section class="character_form">
       <%= render 'char_attributes/show_char_attributes', can_edit: false %>
+    </section>
+  </div>
+
+  <div class="col-md-4">
+    <section class="character_form">
+      <%= render 'active_skills/show_active_skills', can_edit: false %>
     </section>
   </div>
 

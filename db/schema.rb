@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421025739) do
+ActiveRecord::Schema.define(version: 20160422001706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,11 +57,28 @@ ActiveRecord::Schema.define(version: 20160421025739) do
   add_index "char_attributes", ["base_attribute_id"], name: "index_char_attributes_on_base_attribute_id", using: :btree
   add_index "char_attributes", ["character_id"], name: "index_char_attributes_on_character_id", using: :btree
 
+  create_table "character_details", force: :cascade do |t|
+    t.integer  "character_id"
+    t.string   "real_name"
+    t.string   "concept"
+    t.string   "description"
+    t.string   "background"
+    t.string   "metatype"
+    t.string   "gender"
+    t.string   "hair"
+    t.string   "eyes"
+    t.string   "ethnicity"
+    t.string   "skin"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "character_details", ["character_id"], name: "index_character_details_on_character_id", using: :btree
+
   create_table "characters", force: :cascade do |t|
-    t.text     "description"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "name"
   end
 
@@ -92,6 +109,7 @@ ActiveRecord::Schema.define(version: 20160421025739) do
   add_foreign_key "active_skills", "characters"
   add_foreign_key "char_attributes", "base_attributes"
   add_foreign_key "char_attributes", "characters"
+  add_foreign_key "character_details", "characters"
   add_foreign_key "characters", "users"
   add_foreign_key "defenses", "characters"
 end

@@ -1,0 +1,97 @@
+<%= form_for(@character) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name %>
+  <%= @character.name %>
+  <br>
+
+  <div class="row">
+      <div class="col-md-2">
+        <strong>Real Name</strong>:
+      </div>
+      <div class="col-md-10">
+        <%= @character.character_detail.real_name %>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-md-2">
+        <strong>Concept</strong>:
+      </div>
+      <div class="col-md-10">
+        <%= @character.character_detail.concept %>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-md-2">
+        <strong>Description</strong>:
+      </div>
+      <div class="col-md-10">
+        <%= @character.character_detail.description %>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-md-2">
+        <strong>Background</strong>:
+      </div>
+      <div class="col-md-10">
+        <%= @character.character_detail.background %>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <strong>Metatype</strong>:
+    </div>
+    <div class="col-md-10">
+      <%= @character.character_detail.metatype %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <strong>Gender</strong>:
+    </div>
+    <div class="col-md-10">
+      <%= @character.character_detail.gender %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <strong>Hair</strong>:
+    </div>
+    <div class="col-md-10">
+      <%= @character.character_detail.hair %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <strong>Eye color</strong>:
+    </div>
+    <div class="col-md-10">
+      <%= @character.character_detail.eyes %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <strong>Ethnicity</strong>:
+    </div>
+    <div class="col-md-10">
+      <%= @character.character_detail.ethnicity %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <strong>Skin color</strong>:
+    </div>
+    <div class="col-md-10">
+      <%= @character.character_detail.skin %>
+    </div>
+  </div>
+<% end %>

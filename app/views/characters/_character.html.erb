@@ -2,7 +2,6 @@
   <%= link_to gravatar_for(character.user, size: 40), character.user %>
   <span class="character">
     <%= link_to character.name, character_path(character) %>
-    <%= character.description %>
   </span>
   <% if current_user?(character.user) %>
     <span class="character">
