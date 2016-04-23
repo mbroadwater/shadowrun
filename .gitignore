@@ -8,11 +8,8 @@
 tmp/pids/server.pid
 
 config/initializers/secret_token.rb
-config/secrets.yml
 
 # Ignore application configuration
 /config/application.yml
-
-log/development.log
 
 log/development.log
