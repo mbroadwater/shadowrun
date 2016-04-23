@@ -1,31 +1,28 @@
 <h2>Active Skills</h2>
 <% @character.active_skills.each do |active_skill| %>
-  <div class="row">
-
     <% if can_edit %>
-      <div class="col-md-8">
-        <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
-      </div>
+    <div class="col-md-8">
+      <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
+    </div>
 
-      <div class="col-md-2">
-        <%= active_skill.value_base %>
-      </div>
+    <div class="col-md-2">
+      <%= active_skill.value_base %>
+    </div>
 
-      <div class="col-md-2">
-        <%= link_to 'Delete', [active_skill.character, active_skill],
-          method: :delete,
-          data: { confirm: 'Are you sure?' } %>
-      </div>
-    <% else %>
-      <div class="col-md-8">
-        <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
-      </div>
+    <div class="col-md-2">
+      <%= link_to 'Delete', [active_skill.character, active_skill],
+        method: :delete,
+        data: { confirm: 'Are you sure?' } %>
+    </div>
+  <% else %>
+    <div class="col-md-8">
+      <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
+    </div>
 
-      <div class="col-md-4">
-        <%= active_skill.value_base %>
-      </div>
-    <% end %>
-  </div>
+    <div class="col-md-4">
+      <%= active_skill.value_base %>
+    </div>
+  <% end %>
   <br>
 <% end %>
 <p>
