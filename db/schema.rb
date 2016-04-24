@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422001706) do
+ActiveRecord::Schema.define(version: 20160424034549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,12 +35,26 @@ ActiveRecord::Schema.define(version: 20160422001706) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "base_skill_specialties", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "base_skill_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "base_skill_specialties", ["base_skill_id"], name: "index_base_skill_specialties_on_base_skill_id", using: :btree
+
   create_table "base_skills", force: :cascade do |t|
     t.string   "name"
     t.string   "group"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "base_attribute_id"
+    t.string   "description"
+    t.boolean  "default"
   end
+
+  add_index "base_skills", ["base_attribute_id"], name: "index_base_skills_on_base_attribute_id", using: :btree
 
   create_table "char_attributes", force: :cascade do |t|
     t.integer  "value_base"
@@ -95,6 +109,16 @@ ActiveRecord::Schema.define(version: 20160422001706) do
 
   add_index "defenses", ["character_id"], name: "index_defenses_on_character_id", using: :btree
 
+  create_table "skill_specialties", force: :cascade do |t|
+    t.integer  "base_skill_specialty_id"
+    t.integer  "character_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "skill_specialties", ["base_skill_specialty_id"], name: "index_skill_specialties_on_base_skill_specialty_id", using: :btree
+  add_index "skill_specialties", ["character_id"], name: "index_skill_specialties_on_character_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -107,9 +131,13 @@ ActiveRecord::Schema.define(version: 20160422001706) do
 
   add_foreign_key "active_skills", "base_skills"
   add_foreign_key "active_skills", "characters"
+  add_foreign_key "base_skill_specialties", "base_skills"
+  add_foreign_key "base_skills", "base_attributes"
   add_foreign_key "char_attributes", "base_attributes"
   add_foreign_key "char_attributes", "characters"
   add_foreign_key "character_details", "characters"
   add_foreign_key "characters", "users"
   add_foreign_key "defenses", "characters"
+  add_foreign_key "skill_specialties", "base_skill_specialties"
+  add_foreign_key "skill_specialties", "characters"
 end

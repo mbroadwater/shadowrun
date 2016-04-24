@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  base_skill_specialty_id: 
+  character_id: 
+
+two:
+  base_skill_specialty_id: 
+  character_id: 
