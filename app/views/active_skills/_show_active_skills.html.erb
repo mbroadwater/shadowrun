@@ -15,20 +15,24 @@
         </div>
       </div>
 
+
       <div class="row">
         <% @character.skill_specialties.each do |specialty| %>
-          <div class="col-md-8">
-            <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name if specialty.base_skill_specialty_id.present? %>
-          </div>
-          <div class="col-md-1">
-            <%= active_skill.value_base+2 %>
-          </div>
-          <% if can_edit %>
-            <div class="col-md-3">
-              <%= link_to 'Delete', [specialty.character, specialty],
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %>
+
+        <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == active_skill.base_skill_id %>
+            <div class="col-md-8">
+              <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name%>
             </div>
+            <div class="col-md-1">
+              <%= active_skill.value_base + 2 if active_skill.value_base.present? %>
+            </div>
+            <% if can_edit %>
+              <div class="col-md-3">
+                <%= link_to 'Delete', [specialty.character, specialty],
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       </div>
