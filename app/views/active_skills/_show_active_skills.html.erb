@@ -65,14 +65,14 @@
 
     <div class="row">
       <% @character.skill_specialties.each do |specialty| %>
-        <div class="col-md-8">
-          <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == active_skill.base_skill_id %>
+        <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == active_skill.base_skill_id %>
+          <div class="col-md-8">
             <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name %>
-          <% end %>
-        </div>
-        <div class="col-md-1">
-          <%= active_skill.value_base+2 %>
-        </div>
+          </div>
+          <div class="col-md-1">
+            <%= active_skill.value_base+2 %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   <% end %>
