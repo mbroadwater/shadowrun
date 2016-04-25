@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  base_skill_id: 
+  base_skill_specialty_id: 
+  accuracy: 1
+  description: MyString
+  avail_val: MyString
+  availability_id: 
+  armor_piercing: 1
+  damage_value: 1
+  damage_type: MyString
+  range: MyString
+  weapon_modification_id: 
+
+two:
+  name: MyString
+  base_skill_id: 
+  base_skill_specialty_id: 
+  accuracy: 1
+  description: MyString
+  avail_val: MyString
+  availability_id: 
+  armor_piercing: 1
+  damage_value: 1
+  damage_type: MyString
+  range: MyString
+  weapon_modification_id: 

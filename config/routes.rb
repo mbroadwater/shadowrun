@@ -18,19 +18,21 @@ Rails.application.routes.draw do
     resources :skill_specialties
     resources :character_details
   end
+  resources :weapons
 
   # resources :base_attributes
   # resources :base_skills
 
   #api
-  namespace :api, defaults: { format: :json } do
+  # namespace :api, defaults: { format: :json } do
+  namespace :api do
     namespace :v1 do
-      resources :users, only: [:show]
-      resources :characters, only: [:show] do
-        resources :defenses, only: [:show]
-        resources :char_attributes, only: [:show]
-        resources :active_skills, only: [:show]
-        resources :skill_specialties, only: [:show]
+      resources :users, only: [:show, :index]
+      resources :characters, only: [:show, :index] do
+        resources :defenses, only: [:show, :index]
+        resources :char_attributes, only: [:show, :index]
+        resources :active_skills, only: [:show, :index]
+        resources :skill_specialties, only: [:show, :index]
       end
 
     end

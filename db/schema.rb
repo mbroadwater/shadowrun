@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424034549) do
+ActiveRecord::Schema.define(version: 20160425230456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20160424034549) do
 
   add_index "active_skills", ["base_skill_id"], name: "index_active_skills_on_base_skill_id", using: :btree
   add_index "active_skills", ["character_id"], name: "index_active_skills_on_character_id", using: :btree
+
+  create_table "availabilities", force: :cascade do |t|
+    t.string   "type"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "base_attributes", force: :cascade do |t|
     t.string   "name"
@@ -127,7 +134,37 @@ ActiveRecord::Schema.define(version: 20160424034549) do
     t.string   "password_digest"
     t.string   "remember_digest"
     t.boolean  "admin"
+    t.string   "slack_id"
   end
+
+  create_table "weapon_modifications", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "weapons", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "base_skill_id"
+    t.integer  "base_skill_specialty_id"
+    t.integer  "accuracy"
+    t.string   "description"
+    t.string   "avail_val"
+    t.integer  "availability_id"
+    t.integer  "armor_piercing"
+    t.integer  "damage_value"
+    t.string   "damage_type"
+    t.string   "range"
+    t.integer  "weapon_modification_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "weapons", ["availability_id"], name: "index_weapons_on_availability_id", using: :btree
+  add_index "weapons", ["base_skill_id"], name: "index_weapons_on_base_skill_id", using: :btree
+  add_index "weapons", ["base_skill_specialty_id"], name: "index_weapons_on_base_skill_specialty_id", using: :btree
+  add_index "weapons", ["weapon_modification_id"], name: "index_weapons_on_weapon_modification_id", using: :btree
 
   add_foreign_key "active_skills", "base_skills"
   add_foreign_key "active_skills", "characters"
@@ -140,4 +177,8 @@ ActiveRecord::Schema.define(version: 20160424034549) do
   add_foreign_key "defenses", "characters"
   add_foreign_key "skill_specialties", "base_skill_specialties"
   add_foreign_key "skill_specialties", "characters"
+  add_foreign_key "weapons", "availabilities"
+  add_foreign_key "weapons", "base_skill_specialties"
+  add_foreign_key "weapons", "base_skills"
+  add_foreign_key "weapons", "weapon_modifications"
 end
