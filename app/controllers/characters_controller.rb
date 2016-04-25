@@ -3,14 +3,26 @@ class CharactersController < ApplicationController
   before_action :correct_user, only: :destroy
   # before_filter :check_for_cancel, :only => [:create, :update]
 
+  def new
+    @character = current_user.characters.build()
+    @character = current_user.characters.build
+    @character.character_detail = CharacterDetail.new
+    render 'characters/new_character'
+  end
+
   def create
-    @character = current_user.characters.build(character_params)
-    if @character.save
-      flash[:success] = "Character created!"
+    if create_cancelled?
+      @character_feed_items = []
       redirect_to root_url
     else
-      @character_feed_items = []
-      render 'static_pages/home'
+      @character = current_user.characters.build(character_params)
+      if @character.save
+        flash[:success] = "Character created!"
+        redirect_to root_url
+      else
+        @character_feed_items = []
+        render 'static_pages/home'
+      end
     end
   end
 
@@ -41,7 +53,8 @@ class CharactersController < ApplicationController
   private
 
     def character_params
-      params.require(:character).permit(:name, character_detail_attributes: [:real_name, :concept, :description, :background, :metatype, :gender, :hair, :eyes, :ethnicity, :skin])
+      params.require(:character).permit(:name, character_detail_attributes:
+        [:real_name, :concept, :description, :background, :metatype, :gender, :hair, :eyes, :ethnicity, :skin])
     end
 
     def correct_user
@@ -49,9 +62,11 @@ class CharactersController < ApplicationController
       redirect_to root_url if @character.nil?
     end
 
-    # def check_for_cancel
-    #   if params[:commit] == "Cancel"
-    #     redirect_to current_user
-    #   end
-    # end
+    def create_cancelled?
+      if params[:commit] == "Cancel"
+        true
+      else
+        false
+      end
+    end
 end

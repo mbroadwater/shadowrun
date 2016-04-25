@@ -1,0 +1,48 @@
+<%= form_for(@character) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder:"Character Name" %>
+  </div>
+
+  <%= f.fields_for :character_detail do |f2| %>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="field">
+          <%= f2.label "Real Name" %>
+          <%= f2.text_field :real_name, placeholder:"Real Name..."%>
+          <%= f2.label "Concept" %>
+          <%= f2.text_field :concept, placeholder:"Concept..." %>
+          <%= f2.label "Description" %>
+          <%= f2.text_area :description, rows: 10, placeholder:"Description..." %>
+          <%= f2.label "Background" %>
+          <%= f2.text_area :background, rows: 20, placeholder:"Background..." %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="field">
+          <%= f2.label "Metatype" %>
+          <%= f2.text_field :metatype, placeholder:"Metaype..." %>
+          <%= f2.label "Gender" %>
+          <%= f2.text_field :gender, placeholder:"Gender..." %>
+          <%= f2.label "Ethnicity" %>
+          <%= f2.text_field :ethnicity, placeholder:"Ethnicity..." %>
+          <%= f2.label "Hair" %>
+          <%= f2.text_field :hair, placeholder:"Hair..." %>
+          <%= f2.label "Eyes" %>
+          <%= f2.text_field :eyes, placeholder:"Eyes..." %>
+          <%= f2.label "Skin color" %>
+          <%= f2.text_field :skin, placeholder:"Skin color..." %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if is_new %>
+    <%= f.submit "Save Character", class: "btn btn-default col-md-6 col-md-offset-3  col-md-6 col-md-offset-3 " %>
+  <% else %>
+    <%= f.submit "Update details", class: "btn btn-default col-md-6 col-md-offset-3  col-md-6 col-md-offset-3 " %>
+  <% end %>
+  <%= f.submit "Cancel", class: "btn btn-default col-md-6 col-md-offset-3 " %>
+<% end %>

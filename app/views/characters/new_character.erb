@@ -1,0 +1,10 @@
+<% if logged_in? %>
+  <h1>Create New Character</h1>
+    <div class="row">
+      <section class="character_form">
+        <div class="col-md-12">
+          <%= render 'characters/character_form', is_new: true  %>
+        </div>
+      </section>
+    </div>
+<% end %>

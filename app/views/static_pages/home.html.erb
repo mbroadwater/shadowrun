@@ -4,12 +4,12 @@
       <section class="user_info">
         <%= render 'shared/user_info' %>
       </section>
-      <section class="character_form">
-        <%= render 'characters/new_character_form' %>
+      <section>
+        <%= link_to "Create a new character", 'characters/new' %>
       </section>
     </aside>
     <div class="col-md-8">
-      <h3>Character Feed</h3>
+      <h3>Characters</h3>
       <%= render 'shared/character_feed' %>
     </div>
   </div>
