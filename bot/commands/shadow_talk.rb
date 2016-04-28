@@ -1,25 +1,29 @@
 require 'net/http'
+require 'rest-client'
 
 module SlackGamebot
   module Commands
 
-    class DeleteUserMessage < SlackRubyBot::Commands::Base
+    class ShadowTalk < SlackRubyBot::Commands::Base
       match (/./)
 
-      CHANNEL_ID_TEST = 'C0YRM40JH'
-      CHANNEL_ID_PRIVATE = 'G0XT89YHF'
+      CHANNEL_ID_TEST = 'C0YRM40JH' # shadow-test
+      CHANNEL_ID_PRIVATE = 'G0XT89YHF' # mikes-testing-channel
 
       def self.call(client, data, match)
-        if data.channel == CHANNEL_ID_PRIVATE or data.channel == CHANNEL_ID_TEST
-          HTTParty.post("https://slack.com/api/chat.delete",
-            query: {
-              token: Rails.application.secrets.slack_secret_key,
-              ts: data.ts,
-              channel: data.channel
-            },
-            headers: {'Content-Type' => 'application/json'})
-
-          client.say(channel: data.channel, text: create_comment_text(data.user, data.text))
+        # if data.channel == CHANNEL_ID_PRIVATE or data.channel == CHANNEL_ID_TEST
+        # if data.channel == CHANNEL_ID_TEST
+        if data.channel == CHANNEL_ID_PRIVATE
+          # HTTParty.post("https://slack.com/api/chat.delete",
+          #   query: {
+          #     token: Rails.application.secrets.slack_secret_key,
+          #     ts: data.ts,
+          #     channel: data.channel
+          #   },
+          #   headers: {'Content-Type' => 'application/json'})
+          #
+          # client.say(channel: data.channel, text: create_comment_text(data.user, data.text))
+          client.say(channel: data.channel, text: "shadowtalk worked")
         end
       end
 
