@@ -8,10 +8,14 @@ class Api::V1::CharactersController < ApplicationController
 
   def index
     if params[:name]
-      logger.debug("Name sent")
+      logger.debug(params[:name])
       character = Character.find_by(name: params[:name])
-      response = Api::V1::CharacterSerializer.new(character)
-      render(json: response)
+      if character.nil?
+        response = "Character does not exist."
+      else
+        response = Api::V1::CharacterSerializer.new(character)
+        render(json: response)
+      end
     else
       logger.debug("params: #{params}")
       characters = Character.all
