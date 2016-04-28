@@ -10,8 +10,8 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
   }
 
   match /^show (?<option>\w*) (?<character>\w*\s?\w*)/ do |client, data, match|
-    response = RestClient.get("https://shadowguild.herokuapp.com/api/v1/characters/?name=#{match[:character]}")
-    # response = RestClient.get("localhost:3000/api/v1/characters/?name=#{match[:character]}")
+    # response = RestClient.get("https://shadowguild.herokuapp.com/api/v1/characters/?name=#{match[:character]}")
+    response = RestClient.get("localhost:3000/api/v1/characters/?name=#{match[:character]}")
     response_json = JSON.parse(response)
 
     char_hash = {
@@ -46,9 +46,13 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
 
       char_hash[:attributes].each do |a|
         if a.dig("value_modified").nil? || a.dig("value_base") == a.dig("value_modified")
-          reply_text += "\t*#{a.dig("base_attribute", "name")}*: #{a.dig("value_base")}\n"
+          if a.dig("base_attribute", "name").downcase == "essence"
+            reply_text += "\t*#{a.dig("base_attribute", "name")}*: #{a.dig("value_base")}\n"
+          else
+            reply_text += "\t*#{a.dig("base_attribute", "name")}*: #{a.dig("value_base").to_i}\n"
+          end
         else
-          reply_text += "\t*#{a.dig("base_attribute", "name")}*: #{a.dig("value_base")}/#{a.dig("value_modified")}\n"
+          reply_text += "\t*#{a.dig("base_attribute", "name")}*: #{a.dig("value_base").to_i}/#{a.dig("value_modified").to_i}\n"
         end
       end
     end
