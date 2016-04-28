@@ -2,8 +2,8 @@ require 'rest-client'
 
 class MyCharactersCommand < SlackRubyBot::Commands::Base
   match('/my characters/i') do |client, data, match|
-    # response = RestClient.get('https://shadowguild.herokuapp.com/api/v1/users/')
-    response = RestClient.get('localhost:3000/api/v1/users/')
+    response = RestClient.get('https://shadowguild.herokuapp.com/api/v1/users/')
+    # response = RestClient.get('localhost:3000/api/v1/users/')
     response_json = JSON.parse(response)
 
     logger.debug(data)
