@@ -2,14 +2,18 @@
 <% @character.char_attributes.each do |char_attribute| %>
 
   <div class="col-md-4">
-    <strong><%= BaseAttribute.find(char_attribute.base_attribute_id).name %></strong>:
+    <strong><%= att_name = BaseAttribute.find(char_attribute.base_attribute_id).name %></strong>:
   </div>
 
   <div class="col-md-4">
     <% if char_attribute.value_base == char_attribute.value_modified || char_attribute.value_modified.nil? %>
-      <%= char_attribute.value_base %>
+      <% if att_name == "Essence" %>
+        <%= char_attribute.value_base %>
+      <% else %>
+        <%= char_attribute.value_base.to_i %>
+      <% end %>
     <% else %>
-      <%= char_attribute.value_base %>/<%= char_attribute.value_modified %>
+      <%= char_attribute.value_base.to_i %>/<%= char_attribute.value_modified.to_i %>
     <% end %>
   </div>
 

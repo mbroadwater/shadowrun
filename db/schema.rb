@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425230456) do
+ActiveRecord::Schema.define(version: 20160428193424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160425230456) do
   add_index "base_skills", ["base_attribute_id"], name: "index_base_skills_on_base_attribute_id", using: :btree
 
   create_table "char_attributes", force: :cascade do |t|
-    t.integer  "value_base"
+    t.decimal  "value_base"
     t.integer  "value_modified"
     t.integer  "max_natural"
     t.integer  "max_augmented"
