@@ -28,6 +28,9 @@ class CharactersController < ApplicationController
 
   def edit
     @character = Character.find(params[:id])
+    if (!current_user?(@character.user))
+      redirect_to root_url
+    end
   end
 
   def destroy
