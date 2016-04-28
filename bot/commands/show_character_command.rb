@@ -3,6 +3,7 @@ require 'rest-client'
 class ShowCharacterCommand < SlackRubyBot::Commands::Base
   options = {
     full: "full",
+    details: "details",
     attributes: "attributes",
     skills: "skills",
     defenses: "defenses",
@@ -15,6 +16,7 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
 
     char_hash = {
       name: response_json.dig("character", "name"),
+      details: response_json.dig("character", "character_detail"),
       user_id: response_json.dig("character", "user_id"),
       attributes: response_json.dig("character", "char_attributes"),
       skills: response_json.dig("character", "active_skills"),
@@ -22,6 +24,22 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
     }
 
     reply_text = "*Name*: #{char_hash[:name]}\n\n"
+
+    if match[:option].downcase == options[:details]
+      logger.debug("in details")
+      reply_text += "\t*Real Name*: #{char_hash[:details].dig("real_name")}\n"
+      reply_text += "\t*Concept*: #{char_hash[:details].dig("concept")}\n"
+      reply_text += "\t*Metatype*: #{char_hash[:details].dig("metatype")}\n"
+      reply_text += "\t*Gender*: #{char_hash[:details].dig("gender")}\n"
+      reply_text += "\t*Hair*: #{char_hash[:details].dig("hair")}\n"
+      reply_text += "\t*Eyes*: #{char_hash[:details].dig("eyes")}\n"
+      reply_text += "\t*Ethnicity*: #{char_hash[:details].dig("ethnicity")}\n"
+      reply_text += "\t*Skin color*: #{char_hash[:details].dig("skin")}\n"
+      reply_text += "\n*Description:*:\n"
+      reply_text += "#{char_hash[:details].dig("description")}\n\n"
+      reply_text += "\n*Background*:\n"
+      reply_text += "#{char_hash[:details].dig("background")}\n\n"
+    end
 
     if match[:option].downcase == options[:full] || match[:option].downcase == options[:attributes]
       reply_text += "*Attributes*:\n"
