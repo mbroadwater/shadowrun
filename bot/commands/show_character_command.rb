@@ -10,8 +10,8 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
   }
 
   match /^show (?<option>\w*) (?<character>\w*\s?\w*)/ do |client, data, match|
-    response = RestClient.get("https://shadowguild.herokuapp.com/api/v1/characters/?name=#{match[:character]}")
-    # response = RestClient.get("localhost:3000/api/v1/characters/?name=#{match[:character]}")
+    # response = RestClient.get("https://shadowguild.herokuapp.com/api/v1/characters/?name=#{match[:character]}")
+    response = RestClient.get("localhost:3000/api/v1/characters/?name=#{match[:character]}")
     response_json = JSON.parse(response)
 
     char_hash = {
@@ -20,7 +20,8 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
       user_id: response_json.dig("character", "user_id"),
       attributes: response_json.dig("character", "char_attributes"),
       skills: response_json.dig("character", "active_skills"),
-      defenses: response_json.dig("character", "defenses")
+      defenses: response_json.dig("character", "defenses"),
+      specialties: response_json.dig("character", "skill_specialties")
     }
 
     reply_text = "*Name*: #{char_hash[:name]}\n\n"
@@ -58,9 +59,15 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
     end
 
     if match[:option].downcase == options[:full] || match[:option].downcase == options[:skills]
+      logger.debug(char_hash[:specialties])
       reply_text += "*Skills*:\n"
-      char_hash[:skills].each do |s|
-        reply_text += "\t*#{s.dig("base_skill", "name")}*: #{s.dig("value_base")}\n"
+      char_hash[:skills].each do |sk|
+        reply_text += "\t*#{sk.dig("base_skill", "name")}*: #{sk.dig("value_base")}\n"
+        char_hash[:specialties].each do |sp|
+          if sk.dig("base_skill", "id") == sp.dig("base_skill_specialty", "base_skill_id")
+            reply_text += "\t\t*#{sp.dig("base_skill_specialty", "name")}*: #{sk.dig("value_base")+2}\n"
+          end
+        end
       end
     end
 

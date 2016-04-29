@@ -4,7 +4,7 @@ class Api::V1::CharacterSerializer < ActiveModel::Serializer
   has_many :defenses
   has_many :char_attributes
   has_many :active_skills
-  # has_many :skill_specialties
+  has_many :skill_specialties
   has_one :character_detail
 
 end
