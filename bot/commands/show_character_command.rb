@@ -10,8 +10,8 @@ class ShowCharacterCommand < SlackRubyBot::Commands::Base
   }
 
   match /^show (?<option>\w*) (?<character>\w*\s?\w*)/ do |client, data, match|
-    # response = RestClient.get("https://shadowguild.herokuapp.com/api/v1/characters/?name=#{match[:character]}")
-    response = RestClient.get("localhost:3000/api/v1/characters/?name=#{match[:character]}")
+    response = RestClient.get("https://shadowguild.herokuapp.com/api/v1/characters/?name=#{match[:character]}")
+    # response = RestClient.get("localhost:3000/api/v1/characters/?name=#{match[:character]}")
     response_json = JSON.parse(response)
 
     char_hash = {
