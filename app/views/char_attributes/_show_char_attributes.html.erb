@@ -10,7 +10,10 @@
           <%= f2.label "#{BaseAttribute.find(f2.object.base_attribute_id).name}" %>
         </div>
         <div class="col-md-3">
-          <%= link_to 'Delete' %>
+          <% char_attribute = CharAttribute.find(f2.object.id) %>
+          <%= link_to 'Delete', [char_attribute.character, char_attribute],
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %>
         </div>
       </div>
       <% if f2.object.base_attribute_id != 9 && !f2.object.base_attribute_id.nil? %>
