@@ -22,12 +22,16 @@
     <%= f.submit "Cancel", class: "btn btn-default col-md-6 col-md-offset-3 " %>
   <% end %>
 <% else %>
-  <div class="col-md-4">
-    <strong><%= defense.def_type %></strong>:
-  </div>
-  <div class="col-md-4">
-    <%= defense.value_normal %>
-  </div>
+  <% @character.defenses.each do |defense| %>
+    <div class="row">
+      <div class="col-md-6">
+        <strong><%= defense.def_type %></strong>:
+      </div>
+      <div class="col-md-6">
+        <%= defense.value_normal %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
   <br>
 <p>
