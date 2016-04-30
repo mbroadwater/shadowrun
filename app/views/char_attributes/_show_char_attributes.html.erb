@@ -1,70 +1,87 @@
 <h2>Attributes</h2>
 
-<%= form_for(@character) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<% if can_edit %>
+  <%= form_for(@character) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.fields_for :char_attributes do |f2| %>
-    <div class="row">
-      <div class="col-md-12">
-        <%= f2.label "#{BaseAttribute.find(f2.object.base_attribute_id).name}" %>
-      </div>
-    </div>
-    <% if f2.object.base_attribute_id != 9 && !f2.object.base_attribute_id.nil? %>
+    <%= f.fields_for :char_attributes do |f2| %>
       <div class="row">
-        <div class="col-md-3">
-          <section class="character_form">
-            <%= f2.label :value_base, "Base"%>
-          </section>
+        <div class="col-md-9">
+          <%= f2.label "#{BaseAttribute.find(f2.object.base_attribute_id).name}" %>
         </div>
         <div class="col-md-3">
-          <section class="character_form">
-            <% f2.object.value_base = f2.object.value_base.to_i %>
-            <%= f2.number_field :value_base, in: 1..6, step: 1 %>
-          </section>
-        </div>
-        <div class="col-md-3">
-          <section class="character_form">
-          <%= f2.label :value_base, "Modified"%>
-          </section>
-        </div>
-        <div class="col-md-3">
-          <section class="character_form">
-          <%= f2.number_field :value_modified, in: 1..6, step: 1 %>
-          </section>
+          <%= link_to 'Delete' %>
         </div>
       </div>
-    <% elsif !f2.object.base_attribute_id.nil? %>
-      <div class="row">
-        <div class="col-md-12">
-          <%= BaseAttribute.find(f2.object.base_attribute_id).name %>
+      <% if f2.object.base_attribute_id != 9 && !f2.object.base_attribute_id.nil? %>
+        <div class="row">
+          <div class="col-md-3">
+            <section class="character_form">
+              <%= f2.label :value_base, "Base"%>
+            </section>
+          </div>
+          <div class="col-md-3">
+            <section class="character_form">
+              <% f2.object.value_base = f2.object.value_base.to_i %>
+              <%= f2.number_field :value_base, in: 1..6, step: 1 %>
+            </section>
+          </div>
+          <div class="col-md-3">
+            <section class="character_form">
+            <%= f2.label :value_modified, "Modified"%>
+            </section>
+          </div>
+          <div class="col-md-3">
+            <section class="character_form">
+            <%= f2.number_field :value_modified, in: 1..6, step: 1 %>
+            </section>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <section class="character_form">
-            <%= f2.label :value_base, "Base"%>
-          </section>
+      <% elsif !f2.object.base_attribute_id.nil? %>
+        <div class="row">
+          <div class="col-md-3">
+            <section class="character_form">
+              <%= f2.label :value_base, "Base"%>
+            </section>
+          </div>
+          <div class="col-md-3">
+            <section class="character_form">
+              <%= f2.number_field :value_base, in: 0..6, step: 0.01%>
+            </section>
+          </div>
+          <div class="col-md-3">
+            <section class="character_form">
+            <%= f2.label :value_base, "Modified"%>
+            </section>
+          </div>
+          <div class="col-md-3">
+            <section class="character_form">
+            <%= f2.number_field :value_modified, in: 0..6, step: 0.01 %>
+            </section>
+          </div>
         </div>
-        <div class="col-md-3">
-          <section class="character_form">
-            <%= f2.number_field :value_base, in: 0..6, step: 0.01%>
-          </section>
-        </div>
-        <div class="col-md-3">
-          <section class="character_form">
-          <%= f2.label :value_base, "Modified"%>
-          </section>
-        </div>
-        <div class="col-md-3">
-          <section class="character_form">
-          <%= f2.number_field :value_modified, in: 0..6, step: 0.01 %>
-          </section>
-        </div>
-      </div>
+      <% end %>
     <% end %>
-
+    <%= f.submit "Update Attributes", class: "btn btn-default col-md-6 col-md-offset-3  col-md-6 col-md-offset-3 " %>
+    <%= f.submit "Cancel", class: "btn btn-default col-md-6 col-md-offset-3 " %>
   <% end %>
-
-  <%= f.submit "Update Attributes", class: "btn btn-default col-md-6 col-md-offset-3  col-md-6 col-md-offset-3 " %>
-  <%= f.submit "Cancel", class: "btn btn-default col-md-6 col-md-offset-3 " %>
+<% else %>
+  <% @character.char_attributes.each do |char_attribute| %>
+    <div class="col-md-4">
+      <strong><%= att_name = BaseAttribute.find(char_attribute.base_attribute_id).name %></strong>:
+    </div>
+    <div class="col-md-4">
+      <% if char_attribute.value_base == char_attribute.value_modified || char_attribute.value_modified.nil? %>
+        <% if att_name == "Essence" %>
+          <%= char_attribute.value_base %>
+        <% else %>
+          <%= char_attribute.value_base.to_i %>
+        <% end %>
+      <% else %>
+        <%= char_attribute.value_base.to_i %>/<%= char_attribute.value_modified.to_i %>
+      <% end %>
+    </div>
+    <br>
+  <% end %>
+  <p>
 <% end %>

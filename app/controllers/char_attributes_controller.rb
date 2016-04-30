@@ -6,10 +6,13 @@ class CharAttributesController < ApplicationController
   end
 
   def update
-    @char_attribute = CharAttribute.find(params[:id])
-    logger.debug("update: #{@char_attribute}")
-    @char_attribute.update(char_attribute_params)
-    redirect_to edit_character_path(@character)
+    if change_cancelled?
+      redirect_to edit_character_path(@character)
+    else
+      @char_attribute = CharAttribute.find(params[:id])
+      @char_attribute.update(char_attribute_params)
+      redirect_to edit_character_path(@character)
+    end
   end
 
   def destroy
@@ -24,4 +27,13 @@ class CharAttributesController < ApplicationController
     def char_attribute_params
       params.require(:char_attribute).permit(:base_attribute_id, :value_base, :value_modified, :max_natural, :max_augmented, :category)
     end
+
+    def change_cancelled?
+      if params[:commit] == "Cancel"
+        true
+      else
+        false
+      end
+    end
+
 end

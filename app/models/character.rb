@@ -10,4 +10,6 @@ class Character < ActiveRecord::Base
   validates :user_id, presence: true
   accepts_nested_attributes_for :character_detail
   accepts_nested_attributes_for :char_attributes
+  accepts_nested_attributes_for :active_skills
+  accepts_nested_attributes_for :defenses
 end

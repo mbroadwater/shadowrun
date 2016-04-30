@@ -1,0 +1,85 @@
+<h2>Active Skills</h2>
+<% @character.active_skills.each do |active_skill| %>
+    <% if can_edit %>
+      <div class="row">
+        <div class="col-md-8">
+          <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
+        </div>
+        <div class="col-md-1">
+          <%= active_skill.value_base %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to 'Delete', [active_skill.character, active_skill],
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <% @character.skill_specialties.each do |specialty| %>
+          <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == active_skill.base_skill_id %>
+            <div class="col-md-8">
+              <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name%>
+            </div>
+            <div class="col-md-1">
+              <%= active_skill.value_base + 2 if active_skill.value_base.present? %>
+            </div>
+            <% if can_edit %>
+              <div class="col-md-3">
+                <%= link_to 'Delete', [specialty.character, specialty],
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if can_edit %>
+        <p>
+        <div class="row">
+          <div class="col-md-12">
+            <%= form_for([@character, @character.skill_specialties.build]) do |f| %>
+              <% if !BaseSkillSpecialty.where(base_skill_id: active_skill.base_skill_id).empty? %>
+                <%= f.label "Specialty" %>
+                  <%= f.select(:base_skill_specialty_id) do %>
+
+                    <% BaseSkillSpecialty.where(base_skill_id: active_skill.base_skill_id).each do |base_skill_specialty| -%>
+                      <%= content_tag(:option, base_skill_specialty.name, value: base_skill_specialty.id) %>
+                    <% end %>
+                  <% end %>
+                <%= f.submit "Add Specialty", class: "btn btn-default col-md-6 col-md-offset-3 btn-xs" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+  <% else %>
+    <div class="row">
+      <div class="col-md-8">
+        <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
+      </div>
+      <div class="col-md-4">
+        <%= active_skill.value_base %>
+      </div>
+    </div>
+
+    <div class="row">
+      <% @character.skill_specialties.each do |specialty| %>
+        <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == active_skill.base_skill_id %>
+          <div class="col-md-8">
+            <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name %>
+          </div>
+          <div class="col-md-1">
+            <%= active_skill.value_base+2 %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <br>
+<% end %>
+<p>

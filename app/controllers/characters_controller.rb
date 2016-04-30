@@ -11,7 +11,7 @@ class CharactersController < ApplicationController
   end
 
   def create
-    if create_cancelled?
+    if change_cancelled?
       @character_feed_items = []
       redirect_to root_url
     else
@@ -40,12 +40,16 @@ class CharactersController < ApplicationController
   end
 
   def update
-    @character = Character.find(params[:id])
-    if @character.update_attributes(character_params)
-      flash[:success] = "Character Updated"
-      redirect_to edit_character_path(@character)
+    if change_cancelled?
+      redirect_to request.referrer || root_url
     else
-      render 'edit'
+      @character = Character.find(params[:id])
+      if @character.update_attributes(character_params)
+        flash[:success] = "Character Updated"
+        redirect_to edit_character_path(@character)
+      else
+        render 'edit'
+      end
     end
   end
 
@@ -58,7 +62,9 @@ class CharactersController < ApplicationController
     def character_params
       params.require(:character).permit(:name,
         character_detail_attributes:[:real_name, :concept, :description, :background, :metatype, :gender, :hair, :eyes, :ethnicity, :skin],
-        char_attributes_attributes:[:id, :base_attribute_id, :value_base, :value_modified, :max_natural, :max_augmented, :category])
+        char_attributes_attributes:[:id, :base_attribute_id, :value_base, :value_modified, :max_natural, :max_augmented, :category],
+        active_skills_attributes:[:id, :base_attribute_id, :value_base, :value_modified, :max_natural, :max_augmented, :category],
+        defense_attributes:[:id, :def_type, :value_normal])
     end
 
     def correct_user
@@ -66,7 +72,7 @@ class CharactersController < ApplicationController
       redirect_to root_url if @character.nil?
     end
 
-    def create_cancelled?
+    def change_cancelled?
       if params[:commit] == "Cancel"
         true
       else
