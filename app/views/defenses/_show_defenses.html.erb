@@ -1,18 +1,33 @@
 <h2>Defenses</h2>
-<% @character.defenses.each do |defense| %>
+
+<% if can_edit %>
+  <%= form_for(@character) do |f| %>
+    <%= f.fields_for :defenses do |f2| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f2.label :def_type, "#{f2.object.def_type}"%>
+        </div>
+        <div class="col-md-2">
+          <%= f2.number_field :value_normal, in: 0..50, step: 1 %>
+        </div>
+        <div class="col-md-4">
+          <% defense = Defense.find(f2.object.id) %>
+          <%= link_to 'Delete', [defense.character, defense],
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.submit "Update Defenses", class: "btn btn-default col-md-6 col-md-offset-3  col-md-6 col-md-offset-3 " %>
+    <%= f.submit "Cancel", class: "btn btn-default col-md-6 col-md-offset-3 " %>
+  <% end %>
+<% else %>
   <div class="col-md-4">
     <strong><%= defense.def_type %></strong>:
   </div>
   <div class="col-md-4">
     <%= defense.value_normal %>
   </div>
-  <% if can_edit %>
-    <div class="col-md-4">
-      <%= link_to 'Delete', [defense.character, defense],
-        method: :delete,
-        data: { confirm: 'Are you sure?' } %>
-    </div>
-  <% end %>
-  <br>
 <% end %>
+  <br>
 <p>
