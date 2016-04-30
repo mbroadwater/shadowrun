@@ -64,7 +64,7 @@ class CharactersController < ApplicationController
         character_detail_attributes:[:real_name, :concept, :description, :background, :metatype, :gender, :hair, :eyes, :ethnicity, :skin],
         char_attributes_attributes:[:id, :base_attribute_id, :value_base, :value_modified, :max_natural, :max_augmented, :category],
         active_skills_attributes:[:id, :base_attribute_id, :value_base, :value_modified, :max_natural, :max_augmented, :category],
-        defense_attributes:[:id, :def_type, :value_normal])
+        defenses_attributes:[:id, :def_type, :value_normal])
     end
 
     def correct_user
