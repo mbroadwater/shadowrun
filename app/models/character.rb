@@ -5,7 +5,9 @@ class Character < ActiveRecord::Base
   has_many :active_skills, dependent: :destroy
   has_many :skill_specialties, dependent: :destroy
   has_one :character_detail, dependent: :destroy
+  has_one :reputation, dependent: :destroy
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   accepts_nested_attributes_for :character_detail
+  accepts_nested_attributes_for :char_attributes
 end

@@ -5,10 +5,9 @@ class CharacterDetailsController < ApplicationController
     redirect_to edit_character_path(@character)
   end
 
-
   def update
     @character_details = CharacterDetails.find(params[:id])
-    @character_details.update(user_params)
+    @character_details.update(character_details)
     redirect_to edit_character_path(@character)
   end
 

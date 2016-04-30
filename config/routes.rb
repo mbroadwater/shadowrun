@@ -17,11 +17,10 @@ Rails.application.routes.draw do
     resources :active_skills
     resources :skill_specialties
     resources :character_details
+    resources :reputations
   end
   resources :weapons
 
-  # resources :base_attributes
-  # resources :base_skills
 
   #api
   # namespace :api, defaults: { format: :json } do
