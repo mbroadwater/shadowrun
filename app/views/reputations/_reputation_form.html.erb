@@ -1,0 +1,14 @@
+<h2>Add New Defense</h2>
+<%= form_for([@character, @character.defenses.build]) do |f| %>
+  <p>
+    <%= f.label "Type" %>
+    <%= f.text_field :def_type %>
+  </p>
+  <p>
+    <%= f.label "Pool" %>
+    <%= f.number_field :value_normal %>
+  </p>
+  <p>
+    <%= f.submit "Add Defense", class: "btn btn-default col-md-6 col-md-offset-3 " %>
+  </p>
+<% end %>

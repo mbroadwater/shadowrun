@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428193424) do
+ActiveRecord::Schema.define(version: 20160429172802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,17 @@ ActiveRecord::Schema.define(version: 20160428193424) do
 
   add_index "defenses", ["character_id"], name: "index_defenses_on_character_id", using: :btree
 
+  create_table "reputations", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "street_cred"
+    t.integer  "notoriety"
+    t.integer  "public_awareness"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "reputations", ["character_id"], name: "index_reputations_on_character_id", using: :btree
+
   create_table "skill_specialties", force: :cascade do |t|
     t.integer  "base_skill_specialty_id"
     t.integer  "character_id"
@@ -175,6 +186,7 @@ ActiveRecord::Schema.define(version: 20160428193424) do
   add_foreign_key "character_details", "characters"
   add_foreign_key "characters", "users"
   add_foreign_key "defenses", "characters"
+  add_foreign_key "reputations", "characters"
   add_foreign_key "skill_specialties", "base_skill_specialties"
   add_foreign_key "skill_specialties", "characters"
   add_foreign_key "weapons", "availabilities"

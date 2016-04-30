@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  character_id: 
+  street_cred: 1
+  notoriety: 1
+  public_awareness: 1
+
+two:
+  character_id: 
+  street_cred: 1
+  notoriety: 1
+  public_awareness: 1
