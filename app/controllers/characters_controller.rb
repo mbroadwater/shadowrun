@@ -16,7 +16,8 @@ class CharactersController < ApplicationController
       redirect_to root_url
     else
       @character = current_user.characters.build(character_params)
-      if @character.save
+
+        if @character.save
         (1..8).each do |base_att|
           char_attributes = @character.char_attributes.new
           char_attributes.base_attribute_id = base_att
@@ -24,6 +25,12 @@ class CharactersController < ApplicationController
           char_attributes.character.id = @character.id
           @character.save
         end
+        char_attributes = @character.char_attributes.new
+        char_attributes.base_attribute_id = 9
+        char_attributes.value_base = 6
+        char_attributes.character.id = @character.id
+        @character.save
+
         flash[:success] = "Character created!"
         redirect_to root_url
       else
