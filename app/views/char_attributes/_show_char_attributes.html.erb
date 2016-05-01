@@ -74,7 +74,7 @@
   <% @character.char_attributes.each do |char_attribute| %>
     <div class="col-md-4">
       <strong><%= att_name = BaseAttribute.find(char_attribute.base_attribute_id).name %></strong>:
-      <% if char_attribute.base_attribute_id == 11 %>
+      <% if char_attribute.base_attribute_id == 3 %>
         <% if !char_attribute.value_modified.nil? && char_attribute.value_modified >= char_attribute.value_base %>
           <% reaction = char_attribute.value_modified %>
         <% else %>
