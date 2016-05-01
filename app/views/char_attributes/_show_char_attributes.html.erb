@@ -76,7 +76,7 @@
       <strong><%= att_name = BaseAttribute.find(char_attribute.base_attribute_id).name %></strong>:
       <% if char_attribute.base_attribute_id == 3 %>
         <% if !char_attribute.value_modified.nil? && char_attribute.value_modified >= char_attribute.value_base %>
-          <% reaction = char_attribute.value_modified %>
+          <% @reaction = char_attribute.value_modified %>
         <% else %>
           <% reaction = char_attribute.value_base %>
         <% end %>
@@ -87,7 +87,7 @@
         <% if att_name == "Essence" %>
           <%= char_attribute.value_base %>
         <% else %>
-          <%= char_attribute.value_base.to_i %><%= "d6 + #{reaction.to_i}" if char_attribute.base_attribute_id == 11 %>
+          <%= char_attribute.value_base.to_i %><%= "d6 + #{@reaction.to_i}" if char_attribute.base_attribute_id == 11 %>
         <% end %>
       <% else %>
         <%= char_attribute.value_base.to_i %>/<%= char_attribute.value_modified.to_i %>

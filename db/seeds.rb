@@ -60,7 +60,7 @@
 # )
 #
 # BaseAttribute.create!(
-#   name: "Reaction",
+#   name: "Initiative",
 #   category: "Special"
 # )
 #
