@@ -10,7 +10,7 @@
           <%= f2.label "#{BaseAttribute.find(f2.object.base_attribute_id).name}" %>
         </div>
         <div class="col-md-3">
-          <% if f2.object.base_attribute_id > 9 %>
+          <% if f2.object.base_attribute_id > 11 %>
             <% char_attribute = CharAttribute.find(f2.object.id) %>
             <%= link_to 'Delete', [char_attribute.character, char_attribute],
               method: :delete,
@@ -74,13 +74,20 @@
   <% @character.char_attributes.each do |char_attribute| %>
     <div class="col-md-4">
       <strong><%= att_name = BaseAttribute.find(char_attribute.base_attribute_id).name %></strong>:
+      <% if char_attribute.base_attribute_id == 11 %>
+        <% if !char_attribute.value_modified.nil? && char_attribute.value_modified >= char_attribute.value_base %>
+          <% reaction = char_attribute.value_modified %>
+        <% else %>
+          <% reaction = char_attribute.value_base %>
+        <% end %>
+      <% end %>
     </div>
     <div class="col-md-4">
       <% if char_attribute.value_base == char_attribute.value_modified || char_attribute.value_modified.nil? %>
         <% if att_name == "Essence" %>
           <%= char_attribute.value_base %>
         <% else %>
-          <%= char_attribute.value_base.to_i %>
+          <%= char_attribute.value_base.to_i %><%= "d6 + #{reaction.to_i}" if char_attribute.base_attribute_id == 11 %>
         <% end %>
       <% else %>
         <%= char_attribute.value_base.to_i %>/<%= char_attribute.value_modified.to_i %>
