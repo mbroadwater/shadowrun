@@ -30,6 +30,15 @@ class CharactersController < ApplicationController
         char_attributes.value_base = 6
         char_attributes.character.id = @character.id
         @character.save
+        (10..11).each do |base_att|
+          char_attributes = @character.char_attributes.new
+          char_attributes.base_attribute_id = base_att
+          char_attributes.value_base = 1
+          char_attributes.character.id = @character.id
+          @character.save
+        end
+
+
 
         flash[:success] = "Character created!"
         redirect_to root_url
