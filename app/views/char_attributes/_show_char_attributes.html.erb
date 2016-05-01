@@ -28,7 +28,7 @@
           <div class="col-md-3">
             <section class="character_form">
               <% f2.object.value_base = f2.object.value_base.to_i %>
-              <%= f2.number_field :value_base, in: 1..6, step: 1 %>
+              <%= f2.number_field :value_base, in: 1..18, step: 1 %>
             </section>
           </div>
           <div class="col-md-3">
@@ -38,7 +38,7 @@
           </div>
           <div class="col-md-3">
             <section class="character_form">
-            <%= f2.number_field :value_modified, in: 1..6, step: 1 %>
+            <%= f2.number_field :value_modified, in: 1..18, step: 1 %>
             </section>
           </div>
         </div>
@@ -51,7 +51,7 @@
           </div>
           <div class="col-md-3">
             <section class="character_form">
-              <%= f2.number_field :value_base, in: 0..6, step: 0.01%>
+              <%= f2.number_field :value_base, in: 0..18, step: 0.01%>
             </section>
           </div>
           <div class="col-md-3">
@@ -61,7 +61,7 @@
           </div>
           <div class="col-md-3">
             <section class="character_form">
-            <%= f2.number_field :value_modified, in: 0..6, step: 0.01 %>
+            <%= f2.number_field :value_modified, in: 0..18, step: 0.01 %>
             </section>
           </div>
         </div>
