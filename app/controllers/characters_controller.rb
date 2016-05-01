@@ -4,9 +4,9 @@ class CharactersController < ApplicationController
   # before_filter :check_for_cancel, :only => [:create, :update]
 
   def new
-    @character = current_user.characters.build()
     @character = current_user.characters.build
     @character.character_detail = CharacterDetail.new
+
     render 'characters/new_character'
   end
 
@@ -17,6 +17,13 @@ class CharactersController < ApplicationController
     else
       @character = current_user.characters.build(character_params)
       if @character.save
+        (1..8).each do |base_att|
+          char_attributes = @character.char_attributes.new
+          char_attributes.base_attribute_id = base_att
+          char_attributes.value_base = 1
+          char_attributes.character.id = @character.id
+          @character.save
+        end
         flash[:success] = "Character created!"
         redirect_to root_url
       else
