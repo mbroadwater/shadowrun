@@ -1,13 +1,14 @@
-<% @character.skill_specialties.each do |specialty| %>
-  <div class="col-md-8">
-    <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name if specialty.base_skill_specialty_id.present? %>
-  </div>
-  <div class="col-md-1">
-    <%= active_skill.value_base+2 %>
-  </div>
-  <div class="col-md-3">
-    <%= link_to 'Delete', [specialty.character, specialty],
-      method: :delete,
-      data: { confirm: 'Are you sure?' } %>
-  </div>
-<% end %>
+
+        <% @character.skill_specialties.each do |specialty| %>
+          <div class="col-md-8">
+            <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name if specialty.base_skill_specialty_id.present? %>
+          </div>
+          <div class="col-md-1">
+            <%= active_skill.value_base+2 %>
+          </div>
+          <div class="col-md-3">
+            <%= link_to 'Delete', [specialty.character, specialty],
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+          </div>
+        <% end %>

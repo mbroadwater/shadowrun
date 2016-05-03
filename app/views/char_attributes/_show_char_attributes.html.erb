@@ -3,68 +3,72 @@
 <% if can_edit %>
   <%= form_for(@character) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
+
     <%= f.fields_for :char_attributes do |f2| %>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-9">
           <%= f2.label "#{BaseAttribute.find(f2.object.base_attribute_id).name}" %>
         </div>
-        <% if f2.object.base_attribute_id != 9 && !f2.object.base_attribute_id.nil? %>
-          <div class="col-md-1">
-            <%= f2.label :value_base, "Base"%>
+        <div class="col-md-3">
+          <% if f2.object.base_attribute_id > 11 %>
+            <% char_attribute = CharAttribute.find(f2.object.id) %>
+            <%= link_to 'Delete', [char_attribute.character, char_attribute],
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </div>
+      </div>
+      <% if f2.object.base_attribute_id != 9 && !f2.object.base_attribute_id.nil? %>
+        <div class="row">
+          <div class="col-md-3">
+            <section class="character_form">
+              <%= f2.label :value_base, "Base"%>
+            </section>
           </div>
-          <div class="col-md-2">
-            <% f2.object.value_base = f2.object.value_base.to_i %>
-            <%= f2.number_field :value_base, in: 1..18, step: 1 %>
+          <div class="col-md-3">
+            <section class="character_form">
+              <% f2.object.value_base = f2.object.value_base.to_i %>
+              <%= f2.number_field :value_base, in: 1..18, step: 1 %>
+            </section>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
+            <section class="character_form">
             <%= f2.label :value_modified, "Modified"%>
+            </section>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
+            <section class="character_form">
             <%= f2.number_field :value_modified, in: 1..18, step: 1 %>
+            </section>
           </div>
-          <div class="col-md-2">
-            <% if f2.object.base_attribute_id > 11 %>
-              <% char_attribute = CharAttribute.find(f2.object.id) %>
-              <%= link_to 'Delete', [char_attribute.character, char_attribute],
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %>
-            <% end %>
+        </div>
+      <% elsif !f2.object.base_attribute_id.nil? %>
+        <div class="row">
+          <div class="col-md-3">
+            <section class="character_form">
+              <%= f2.label :value_base, "Base"%>
+            </section>
           </div>
-        <% elsif !f2.object.base_attribute_id.nil? %>
-          <div class="col-md-1">
-            <%= f2.label :value_base, "Base"%>
+          <div class="col-md-3">
+            <section class="character_form">
+              <%= f2.number_field :value_base, in: 0..18, step: 0.01%>
+            </section>
           </div>
-          <div class="col-md-2">
-            <%= f2.number_field :value_base, in: 0..18, step: 0.01%>
-          </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
+            <section class="character_form">
             <%= f2.label :value_base, "Modified"%>
+            </section>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
+            <section class="character_form">
             <%= f2.number_field :value_modified, in: 0..18, step: 0.01 %>
+            </section>
           </div>
-          <div class="col-md-2">
-          </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     <% end %>
-    <div class="row">
-      <div class="col-md-12">
-        <section class="character_form">
-          <%= render 'char_attributes/char_attribute_form' %>
-        </section>
-      </div>
-    </div>
-
-    <br>
-    <div class="row">
-      <div class="col-md-6">
-        <%= f.submit "Update Attributes", class: "btn btn-sm btn-default col-md-6 col-md-offset-3" %>
-      </div>
-      <div class="col-md-6">
-        <%= f.submit "Cancel", class: "btn btn-sm btn-default col-md-6" %>
-      </div>
-    </div>
+    <%= f.submit "Update Attributes", class: "btn btn-default col-md-6 col-md-offset-3  col-md-6 col-md-offset-3 " %>
+    <%= f.submit "Cancel", class: "btn btn-default col-md-6 col-md-offset-3 " %>
   <% end %>
 <% else %>
   <% @character.char_attributes.each do |char_attribute| %>
