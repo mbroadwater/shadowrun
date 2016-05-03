@@ -13,3 +13,5 @@ config/initializers/secret_token.rb
 /config/application.yml
 
 log/development.log
+
+config/secrets.yml
