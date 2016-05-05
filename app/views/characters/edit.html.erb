@@ -10,41 +10,26 @@
 
   <div class="row">
     <div class="col-md-4">
-      <section class="character_form">
-        <%= render 'char_attributes/show_char_attributes', can_edit: true %>
-      </section>
+      <%= render 'char_attributes/edit_char_attributes' %>
     </div>
-
     <div class="col-md-4">
-      <section class="character_form">
-        <%= render 'active_skills/show_active_skills', can_edit: true %>
-      </section>
+      <%= render 'active_skills/show_active_skills', can_edit: true %>
     </div>
-
     <div class="col-md-4">
-      <section class="character_form">
-        <%= render 'defenses/show_defenses', can_edit: true %>
-      </section>
+      <%= render 'defenses/show_defenses', can_edit: true %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-4">
-      <section class="character_form">
-        <%= render 'char_attributes/char_attribute_form' %>
-      </section>
     </div>
 
     <div class="col-md-4">
-      <section class="character_form">
-        <%= render 'active_skills/active_skills_form'%>
-      </section>
+      <%= render 'active_skills/active_skills_form'%>
     </div>
 
     <div class="col-md-4">
-      <section class="character_form">
-        <%= render 'defenses/defense_form' %>
-      </section>
+      <%= render 'defenses/defense_form' %>
     </div>
   </div>
 <% end %>
