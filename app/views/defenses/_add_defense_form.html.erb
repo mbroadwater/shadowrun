@@ -1,0 +1,19 @@
+<%= form_for([@character, @character.defenses.build]) do |f| %>
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label "Type" %>
+    </div>
+    <div class="col-md-4">
+      <%= f.text_field :def_type %>
+    </div>
+    <div class="col-md-2">
+      <%= f.label "Pool" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.number_field :value_normal %>
+    </div>
+    <div class="col-md-2">
+      <%= f.submit "Add", class: "btn btn-default btn-xs" %>
+    </div>
+  </div>
+<% end %>

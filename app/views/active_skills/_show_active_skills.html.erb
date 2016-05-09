@@ -1,72 +1,26 @@
 <h2>Active Skills</h2>
 
-<% if can_edit %>
-
-
-  <%= form_for(@character) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
-    <%= f.fields_for :active_skills do |f2| %>
-      <div class="row">
-        <div class="col-md-7">
-          <%= f2.label "#{BaseSkill.find(f2.object.base_skill_id).name}" %>
-        </div>
-        <div class="col-md-2">
-          <%= f2.number_field :value_base, in: 0..12, step: 1 %>
-        </div>
-        <div class="col-md-3">
-          <% active_skill = ActiveSkill.find(f2.object.id) %>
-          <%= link_to 'Delete', [active_skill.character, active_skill],
-            method: :delete,
-            data: { confirm: 'Are you sure?' } %>
-        </div>
-      </div>
-      <div class="row">
-        <% @character.skill_specialties.each do |specialty| %>
-          <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == f2.object.base_skill_id %>
-            <div class="col-md-7">
-              <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name%>
-            </div>
-            <div class="col-md-2">
-              <%= f2.object.value_base + 2 if f2.object.value_base.present? %>
-            </div>
-            <div class="col-md-3">
-              <%= link_to 'Delete', [specialty.character, specialty],
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-      <br>
-    <% end %>
-
-    <%= f.submit "Update Skills", class: "btn btn-default col-md-6 col-md-offset-3  col-md-6 col-md-offset-3 " %>
-    <%= f.submit "Cancel", class: "btn btn-default col-md-6 col-md-offset-3 " %>
-  <% end %>
-
-<% else %>
-  <% @character.active_skills.each do |active_skill| %>
-    <div class="row">
-      <div class="col-md-8">
-        <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
-      </div>
-      <div class="col-md-4">
-        <%= active_skill.value_base %>
-      </div>
+<% @character.active_skills.each do |active_skill| %>
+  <div class="row">
+    <div class="col-md-8">
+      <strong><%= BaseSkill.find(active_skill.base_skill_id).name %></strong>:
     </div>
+    <div class="col-md-4">
+      <%= active_skill.value_base %>
+    </div>
+  </div>
 
-    <div class="row">
-      <% @character.skill_specialties.each do |specialty| %>
-        <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == active_skill.base_skill_id %>
-          <div class="col-md-8">
-            <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name %>
-          </div>
-          <div class="col-md-1">
-            <%= active_skill.value_base+2 %>
-          </div>
-        <% end %>
+  <div class="row">
+    <% @character.skill_specialties.each do |specialty| %>
+      <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == active_skill.base_skill_id %>
+        <div class="col-md-8">
+          <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name %>
+        </div>
+        <div class="col-md-1">
+          <%= active_skill.value_base+2 %>
+        </div>
       <% end %>
-    </div>
-    <p>
-  <% end %>
+    <% end %>
+  </div>
+  <p>
 <% end %>

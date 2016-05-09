@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429172802) do
+ActiveRecord::Schema.define(version: 20160508014227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,9 +59,11 @@ ActiveRecord::Schema.define(version: 20160429172802) do
     t.integer  "base_attribute_id"
     t.string   "description"
     t.boolean  "default"
+    t.integer  "skill_group_id"
   end
 
   add_index "base_skills", ["base_attribute_id"], name: "index_base_skills_on_base_attribute_id", using: :btree
+  add_index "base_skills", ["skill_group_id"], name: "index_base_skills_on_skill_group_id", using: :btree
 
   create_table "char_attributes", force: :cascade do |t|
     t.decimal  "value_base"
@@ -127,6 +129,13 @@ ActiveRecord::Schema.define(version: 20160429172802) do
 
   add_index "reputations", ["character_id"], name: "index_reputations_on_character_id", using: :btree
 
+  create_table "skill_groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "skill_specialties", force: :cascade do |t|
     t.integer  "base_skill_specialty_id"
     t.integer  "character_id"
@@ -181,6 +190,7 @@ ActiveRecord::Schema.define(version: 20160429172802) do
   add_foreign_key "active_skills", "characters"
   add_foreign_key "base_skill_specialties", "base_skills"
   add_foreign_key "base_skills", "base_attributes"
+  add_foreign_key "base_skills", "skill_groups"
   add_foreign_key "char_attributes", "base_attributes"
   add_foreign_key "char_attributes", "characters"
   add_foreign_key "character_details", "characters"

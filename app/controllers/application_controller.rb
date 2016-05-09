@@ -1,6 +1,8 @@
 require "application_responder"
 
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   self.responder = ApplicationResponder
   respond_to :html
 
@@ -18,5 +20,9 @@ class ApplicationController < ActionController::Base
         flash[:danger] = "Please log in."
         redirect_to login_url
       end
+    end
+
+    def record_not_found
+      render plain: "404 Not Found", status: 404
     end
 end

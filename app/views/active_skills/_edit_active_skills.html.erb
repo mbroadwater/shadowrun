@@ -1,0 +1,52 @@
+<h2>Active Skills</h2>
+
+  <%= form_for(@character) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= f.fields_for :active_skills do |f2| %>
+      <div class="row" activeskills>
+        <div class="col-md-4">
+          <%= f2.label "#{BaseSkill.find(f2.object.base_skill_id).name}" %>
+        </div>
+        <div class="col-md-2">
+          <%= f2.number_field :value_base, in: 0..12, step: 1 %>
+        </div>
+        <div class="col-md-2">
+          <% active_skill = ActiveSkill.find(f2.object.id) %>
+          <%= link_to 'Delete', [active_skill.character, active_skill],
+            method: :delete,
+            class: "btn btn-default btn-xs",
+            data: { confirm: 'Are you sure?' } %>
+        </div>
+      </div>
+
+      <% @character.skill_specialties.each do |specialty| %>
+        <% if specialty.base_skill_specialty_id.present? && BaseSkillSpecialty.find(specialty.base_skill_specialty_id).base_skill_id == f2.object.base_skill_id %>
+          <div class="row" skillspecialty>
+            <div class="col-md-4">
+              <%= BaseSkillSpecialty.find(specialty.base_skill_specialty_id).name%>
+            </div>
+            <div class="col-md-2">
+              <%= f2.object.value_base + 2 if f2.object.value_base.present? %>
+            </div>
+            <div class="col-md-2">
+              <%= link_to 'Delete', [specialty.character, specialty],
+                method: :delete,
+                class: "btn btn-default btn-xs",
+                data: { confirm: 'Are you sure?' } %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-3 col-md-offset-3">
+        <%= f.submit "Update Skills", class: "btn btn-default btn-xs " %>
+      </div>
+      <div class="col-md-3">
+        <%= f.submit "Cancel", class: "btn btn-default btn-xs" %>
+      </div>
+    </div>
+
+
+  <% end %>

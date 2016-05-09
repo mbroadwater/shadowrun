@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
+
   resources :users
   resources :characters do
     resources :defenses
@@ -33,6 +34,8 @@ Rails.application.routes.draw do
         resources :active_skills, only: [:show, :index]
         resources :skill_specialties, only: [:show, :index]
       end
+      resources :base_skills, only: [:show, :index]
+      resources :base_attributes, only: [:show, :index]
 
     end
   end
